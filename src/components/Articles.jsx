@@ -1,6 +1,5 @@
 import { GetAllProducts } from '../store/modules/blogger'
 
-< GetAllProducts />;
 
 export function Articles( ){
     return <>
