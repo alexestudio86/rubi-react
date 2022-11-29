@@ -1,8 +1,9 @@
 import logoArminda from '../assets/logo_arminda-dark.png';
+import { NavLink } from 'react-router-dom';
 const labels = ['Crema para peinar', 'Fijación', 'Herramientas', 'Mascarilla matizante', 'Multifuncionales', 'Multivitaminico', 'Semipermanentes', 'Shampoo'];
 
 export function NavFull( ){
-    return <>
+    return (
         <nav className='navbar navbar-expand-lg navbar-dark bg-dark sticky-top'>
             <div className='container'>
                 <a className='navbar-brand d-none d-sm-block' href='/'>
@@ -48,7 +49,7 @@ export function NavFull( ){
                 </div>
             </div>
         </nav>
-    </>
+    )
 }
 
 /* If you export directly, you need import with destructuring*/
