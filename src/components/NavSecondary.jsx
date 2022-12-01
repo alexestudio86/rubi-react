@@ -15,9 +15,9 @@ export function NavSecondary( ){
         <>
             <ul className='nav bg-secondary justify-content-center py-1 sticky-top' style={ {zIndex: '5'} }>
                 { categories.map(
-                    c => (
-                        <li className='nav-item'>
-                            <NavLink className='nav-link text-uppercase text-light' to={c.url}>{ c.label }</NavLink>
+                    (category, index) => (
+                        <li key={index} className='nav-item'>
+                            <NavLink className='nav-link text-uppercase text-light' to={category.url}>{ category.label }</NavLink>
                         </li>
                     )
                 )}

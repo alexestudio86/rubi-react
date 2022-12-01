@@ -1,18 +1,4 @@
-import { blogID, apiKey } from '../../config.js';
-import axios from 'axios';
-import React from 'react';
-
-const baseURL = `https://www.googleapis.com/blogger/v3/blogs/${blogID}/posts?key=${apiKey}&fetchImages=true`;
-
-export const GetAllProducts = () => {
-
-    // Make async request with axios fetching response
-    const [ posts, setPosts ] = React.useState(null);
-    React.useEffect( () => {
-        axios.get( baseURL ).then( (res) => {
-            setPosts(res.data.items)
-        })
-    }, [])
+export function AllProducts ( { posts } ) {
 
     // Check if results are diferents to 0
     if(!posts) return null
@@ -50,10 +36,8 @@ export const GetAllProducts = () => {
     };
 
     return (
-        <>
-            <main className="row">
-            {
-            posts.map( (post, index) => (
+      <main className='row'>
+        { posts.map( ( post, index ) => (
                 <article key={index} className="col-md-6 p-2" >
                     <div className='card p-2'>
                         <div className='row'>
@@ -74,8 +58,7 @@ export const GetAllProducts = () => {
                     </div>
                 </article>
             ) )
-            }
-            </main>
-        </>
-    )
+        }
+      </main>
+  )
 }

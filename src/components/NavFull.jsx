@@ -1,44 +1,39 @@
 import logoArminda from '../assets/logo_arminda-dark.png';
 import { NavLink } from 'react-router-dom';
-const labels = ['Crema para peinar', 'Fijación', 'Herramientas', 'Mascarilla matizante', 'Multifuncionales', 'Multivitaminico', 'Semipermanentes', 'Shampoo'];
+
+const active = 'nav-link text-uppercase active';
+const inactive = 'nav-link text-uppercase';
 
 export function NavFull( ){
     return (
         <nav className='navbar navbar-expand-lg navbar-dark bg-dark sticky-top'>
             <div className='container'>
-                <a className='navbar-brand d-none d-sm-block' href='/'>
+                <NavLink className='navbar-brand d-none d-sm-block' to='/'>
                     <img src={ logoArminda } alt='Logo arminda' height='74' />
-                </a>
+                </NavLink>
                 <button className='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
                     <i className='navbar-toggler-icon'></i>
                 </button>
-                <a className='btn btn-dark d-block d-sm-none' href='/checkout' >
+                <NavLink className='btn btn-dark d-block d-sm-none' to='/checkout' >
                     <i className='fas fa-shopping-cart fa-lg me-1'></i>
                     <span className='badge rounded-pill bg-danger'></span>
-                </a>
+                </NavLink>
                 <div className='collapse navbar-collapse' id='navbarSupportedContent'>
                     <ul className='navbar-nav me-auto mb-2 mb-lg-0'>
                         <li className='nav-item'>
-                            <a className='nav-link text-uppercase' href='#home'>
+                            <NavLink className={ ({isActive}) => isActive ? active : inactive} to='/'>
                                 Home
-                            </a>
+                            </NavLink>
                         </li>
                         <li className='nav-item'>
-                            <a className='nav-link text-uppercase' href='#services'>
+                            <NavLink className='nav-link text-uppercase' to='/services'>
                                 Servicios
-                            </a>
+                            </NavLink>
                         </li>
-                        <li className='nav-item dropdown'>
-                            <button className='nav-link dropdown-toggle text-uppercase btn' id='navbarDropdown' data-bs-toggle='dropdown' aria-expanded='false'>
+                        <li className='nav-item'>
+                            <NavLink className='nav-link text-uppercase' to='/products'>
                                 Productos
-                            </button>
-                            <ul className='dropdown-menu' aria-labelledby='navbarDropdown'>
-                                { labels.map( (l, index) => 
-                                    <li key={index} >
-                                    <a className='dropdown-item' href='/'> {l} </a>
-                                </li>
-                                ) }
-                            </ul>
+                            </NavLink>
                         </li>
                     </ul>
                     <form className='d-flex' >
