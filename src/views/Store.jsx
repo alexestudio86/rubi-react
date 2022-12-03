@@ -2,10 +2,11 @@ import { NavFull } from '../components/NavFull';
 import { PopularProductsPlaceholder } from '../components/PopularProductsPlaceholder';
 import { NavSecondary } from '../components/NavSecondary';
 import { CategoriesPlacesholder } from '../components/CategoriesPlaceholder';
+import { Products } from '../components/Products';
 
 
 
-export function Products () {
+export function Store () {
     return (
         <>
             <NavFull />
@@ -44,9 +45,9 @@ export function Products () {
                 </div>
                 <div className='container bg-white mt-4'>
                     <h1 className='text-center'>Archivo</h1>
+                    <Products />
                 </div>
             </div>
-
         </>
     )
 }

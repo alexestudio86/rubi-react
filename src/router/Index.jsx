@@ -1,6 +1,6 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import { HomeView } from '../views/HomeView';
-import { Products } from '../views/Products';
+import { Store } from '../views/Store';
 import { Product } from '../views/Product'
 import { NotFound } from '../views/NotFound';
 
@@ -9,7 +9,7 @@ export function Rutas(){
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<HomeView />} />
-                <Route path='/products' element={<Products />} >
+                <Route path='/store' element={<Store />} >
                     <Route path=':10' element={<Product/>} />
                 </Route>
                 <Route path='*' element={<NotFound />} />

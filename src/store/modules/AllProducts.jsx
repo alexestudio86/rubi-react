@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 export function AllProducts ( { posts } ) {
 
     // Check if results are diferents to 0
@@ -50,9 +52,9 @@ export function AllProducts ( { posts } ) {
                             </div>
                             <div className="col-md-9 bg-light d-block d-sm-none d-flex justify-content-between align-items-center">
                                 <h1 className='m-0 text-secondary fs-6 fw-bold'>{ post.title }</h1>
-                                <a className="btn" >
+                                <Link className="btn" to={`/${post.url}`} relative='path' >
                                     <i className="far fa-caret-square-down text-primary fa-2x"></i>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>
