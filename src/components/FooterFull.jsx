@@ -1,6 +1,6 @@
 export function FooterFull( ){
     return <>
-        <footer>
+        <footer id='footerFull'>
             <div className='bg-secondary'>
                 <div className='container py-2'>
                     <div className='row'>

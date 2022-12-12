@@ -3,7 +3,7 @@ import imageProfile from '../assets/profile.png'
 
 export function Contact( ){
     return <>
-        <div className='bg-light'>
+        <div className='bg-light' id='contact'>
             <div className='container py-2'>
                 <h1 className='text-center py-2'>Contacto</h1>
                 <div className='row'>

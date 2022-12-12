@@ -1,6 +1,6 @@
 function Notice( ){
     return <>
-        <div className='container py-2 text-center'>
+        <div id='notice' className='container py-2 text-center'>
             <span className='link-primary'>Aprovecha nuestros precios especiales</span>
         </div>
     </>

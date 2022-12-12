@@ -1,6 +1,6 @@
-import { BackgroundSVG } from "./BackgroundSVG"
+import { BackgroundSVG } from "../BackgroundSVG"
 
-export function PopularProductsPlaceholder (){
+export function FeaturedProductsPlaceholder (){
     return (
         <div className='card' aria-hidden='true'>
             <div className='placeholder-glow'>

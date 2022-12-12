@@ -1,27 +1,29 @@
 import { NavFull } from '../components/NavFull';
-import { PopularProductsPlaceholder } from '../components/PopularProductsPlaceholder';
+import { Header } from '../components/Header';
+import { FeaturedProductsPlaceholder } from '../components/store/FeaturedProductsPlaceholder';
 import { NavSecondary } from '../components/NavSecondary';
 import { CategoriesPlacesholder } from '../components/CategoriesPlaceholder';
-import { Products } from '../components/Products';
+import { Products } from '../components/products/Products';
 
 
 
-export function Store () {
+export function StoreView () {
     return (
         <>
             <NavFull />
+            <Header />
             <div className="bg-secondary py-3">
                 <div className='container bg-white py-4'>
                     <h1 className='text-center'>Lo mas visto</h1>
                     <div className='row'>
                         <div className='col-md-4'>
-                            <PopularProductsPlaceholder />
+                            <FeaturedProductsPlaceholder />
                         </div>
                         <div className='col-md-4'>
-                            <PopularProductsPlaceholder />
+                            <FeaturedProductsPlaceholder />
                         </div>
                         <div className='col-md-4'>
-                            <PopularProductsPlaceholder />
+                            <FeaturedProductsPlaceholder />
                         </div>
                     </div>
                 </div>

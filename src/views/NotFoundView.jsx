@@ -1,7 +1,7 @@
 import { NavCompact } from '../components/NavCompact'
 import Travolta from '../assets/404-travolta.gif'
 
-export function NotFound(){
+export function NotFoundView ( ){
     return (
         <>
             <NavCompact />

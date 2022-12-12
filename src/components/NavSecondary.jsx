@@ -13,11 +13,11 @@ const categories = [
 export function NavSecondary( ){
     return (
         <>
-            <ul className='nav bg-secondary justify-content-center py-1 sticky-top' style={ {zIndex: '5'} }>
+            <ul id='navSecondary' className='nav nav-tabs bg-secondary justify-content-center py-1 sticky-top' style={ {zIndex: '5'} }>
                 { categories.map(
                     (category, index) => (
                         <li key={index} className='nav-item'>
-                            <NavLink className='nav-link text-uppercase text-light' to={category.url}>{ category.label }</NavLink>
+                            <NavLink className='nav-link text-uppercase link-light' to={category.url}>{ category.label }</NavLink>
                         </li>
                     )
                 )}

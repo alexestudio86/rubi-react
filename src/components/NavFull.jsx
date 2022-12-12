@@ -6,7 +6,7 @@ const inactive = 'nav-link text-uppercase';
 
 export function NavFull( ){
     return (
-        <nav className='navbar navbar-expand-lg navbar-dark bg-dark sticky-top'>
+        <nav className='navbar navbar-expand-lg navbar-dark bg-dark sticky-top' id='navfull'>
             <div className='container'>
                 <NavLink className='navbar-brand d-none d-sm-block' to='/'>
                     <img src={ logoArminda } alt='Logo arminda' height='74' />
