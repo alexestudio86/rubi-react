@@ -1,19 +1,20 @@
 export function GetDummies ( {dummyResponse} ){
-    console.log( dummyResponse )
+
+    console.log( dummyResponse );
+
+    const getImage = ( img ) => {
+        return img[0].url
+    }
+
+    const getLabel = ( label ) => {
+        return label[0]
+    }
+
     return (
         <>
         <h1>{dummyResponse.title}</h1>
-        <p>{dummyResponse.body}</p>
-        {/*
-
-            { dummyResponse.map( dummyR =>
-                <article key={dummyR.id}>
-                    <h1>{dummyR.title}</h1>
-                    <p>{ dummyR.body }</p>
-                </article>
-            )}
-
-        */}
+        {/* <img className='w-100' alt={dummyResponse.title} src={ getImage(dummyResponse.images) } />
+        <p className='breadcrumb-item category text-primary'>{ getLabel(dummyResponse.labels) }</p> */}
         </>
     )
 }

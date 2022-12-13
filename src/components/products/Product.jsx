@@ -1,9 +1,9 @@
-import Axios from "axios";
-import { useParams } from "react-router-dom";
+import axios from "axios";
 import { useState, useEffect } from 'react';
+import { GetProduct } from '../../store/modules/GetProduct';
+import { useParams } from "react-router-dom";
 import { blogID, apiKey } from '../../config';
 import { NavCompact } from "../NavCompact";
-import { GetProduct } from '../../store/modules/GetProduct';
 
 
 
@@ -12,11 +12,10 @@ export function Product () {
     const baseURL = `https://www.googleapis.com/blogger/v3/blogs/${blogID}/posts/${params.postID}?key=${apiKey}&fetchImages=true`;
     const [ post, setPost ] = useState([]);
     useEffect( () => {
-        const fetchData = async() => {
-            const response = await Axios.get( baseURL );
-            setPost( response.data );
-        };
-        fetchData();
+        axios.get( baseURL )
+            .then( response => {
+                setPost( response.data );
+            })
     }, []);
 
     return (

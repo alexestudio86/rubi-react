@@ -2,10 +2,7 @@ import { Link } from 'react-router-dom'
 
 export function GetProduct ( { post } ) {
 
-  if(!post) return null
-
-  const getLabels = async(label) => {
-
+  const getLabel = async(label) => {
       if( await label.length === 0){
         return 'Varios'
       }else if ( await label.length === 1) {
@@ -13,10 +10,11 @@ export function GetProduct ( { post } ) {
       } else {
         return label[1]
       }
-
   };
 
-  const getImage = ( imgs ) => {
+  const getImage = ( img ) => {
+    return 'imagen'
+    /*
     if(imgs) {
       if(imgs.length === 0){
         return 'https://blogger.googleusercontent.com/img/a/AVvXsEh7Jx5rNMA2KDw2pXf65nS5ybDjI4Hd8VhHil6KU6oiOZY9KxWzcQK7K49JzIY1OwuT8lIXHHD8-wC-EZb88ceQSt8XHwkeJl-ogDxHtwY9zt7s0OVDlm8MXDanI7h2rl_vl-dCK-kaTy2hG1x6BbfxoEJdGECG1VK8BjBCIqjjAOdzmlKcBGl9ZK1tfg=s640'
@@ -26,20 +24,21 @@ export function GetProduct ( { post } ) {
         return imgs[0].url.replace("s1024","s320")
       }
     }
+    */
   };
 
 
   return (
     <>
-
       <div className='bg-dark p-2'>
         <div className='card p-2'>
           <h1 className='fs-5 fw p-2 text-uppercase text-end'>{ post.title }</h1>
           <img className='w-100' alt={post.title} src={ getImage(post.images) } />
+          {/*
           <nav aria-label='breadcrumb'>
             <ol className='breadcrumb m-0 py-1'>
               <li aria-current='page' className='breadcrumb-item active'>Home</li>
-              <li className='breadcrumb-item category text-primary'><a>{ getLabels (post.labels) }</a></li>
+              <li className='breadcrumb-item category text-primary'><a>{ getLabel(post.labels) }</a></li>
             </ol>
           </nav>
           <div className='row m-0 p-0' dangerouslySetInnerHTML={ { __html: post.content } }></div>
@@ -105,9 +104,9 @@ export function GetProduct ( { post } ) {
           <div className='py-1'>
             <a className='btn btn-warning w-100' to='/checkout' >Realizar pedido</a>
           </div>
+          */}
         </div>
       </div>
-
     </>
   )
 }
