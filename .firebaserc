@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "comandas-3a9bd"
+  },
+  "targets": {
+    "comandas-3a9bd": {
+      "hosting": {
+        "rubi-react": [
+          "rubi-react"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

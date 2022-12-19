@@ -5,8 +5,6 @@ import { NotFoundView } from '../views/NotFoundView';
 import { ProductView } from '../views/ProductView';
 import { Product } from '../components/products/Product';
 
-import { Dummy } from '../components/Dummy';
-
 
 export function Rutas(){
     return (
@@ -16,9 +14,6 @@ export function Rutas(){
                 <Route path='store' element={<StoreView />} />
                 <Route path='store/product' element={<ProductView />} />
                 <Route path='store/product/:postID' element={<Product/>} />
-
-                <Route path='tienda/:dummyID' element={<Dummy/>} />
-
                 <Route path='*' element={<NotFoundView />} />
             </Routes>
         </BrowserRouter>

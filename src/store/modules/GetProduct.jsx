@@ -1,44 +1,24 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+
+
 
 export function GetProduct ( { post } ) {
 
-  const getLabel = async(label) => {
-      if( await label.length === 0){
-        return 'Varios'
-      }else if ( await label.length === 1) {
-        return label[0]
-      } else {
-        return label[1]
-      }
-  };
-
-  const getImage = ( img ) => {
-    return 'imagen'
-    /*
-    if(imgs) {
-      if(imgs.length === 0){
-        return 'https://blogger.googleusercontent.com/img/a/AVvXsEh7Jx5rNMA2KDw2pXf65nS5ybDjI4Hd8VhHil6KU6oiOZY9KxWzcQK7K49JzIY1OwuT8lIXHHD8-wC-EZb88ceQSt8XHwkeJl-ogDxHtwY9zt7s0OVDlm8MXDanI7h2rl_vl-dCK-kaTy2hG1x6BbfxoEJdGECG1VK8BjBCIqjjAOdzmlKcBGl9ZK1tfg=s640'
-      }else if (imgs.length === 1) {
-        return imgs[0].url.replace("s1024","s320")
-      } else {
-        return imgs[0].url.replace("s1024","s320")
-      }
-    }
-    */
-  };
-
+  // For some reazon, in this case is necesary apply one if for check if one element is available, i think this is because the funciont is async and is initialized 2 times, one starting and secon calling
+  //if(imgs) {
 
   return (
     <>
       <div className='bg-dark p-2'>
         <div className='card p-2'>
           <h1 className='fs-5 fw p-2 text-uppercase text-end'>{ post.title }</h1>
-          <img className='w-100' alt={post.title} src={ getImage(post.images) } />
-          {/*
+          <img className='w-100' alt={post.title} src={ post.image } />
           <nav aria-label='breadcrumb'>
             <ol className='breadcrumb m-0 py-1'>
               <li aria-current='page' className='breadcrumb-item active'>Home</li>
-              <li className='breadcrumb-item category text-primary'><a>{ getLabel(post.labels) }</a></li>
+              <li className='breadcrumb-item category text-primary'>
+                <Link to={`/store/searchByLabel/${post.label}`}>{ post.label }</Link>
+              </li>
             </ol>
           </nav>
           <div className='row m-0 p-0' dangerouslySetInnerHTML={ { __html: post.content } }></div>
@@ -97,16 +77,17 @@ export function GetProduct ( { post } ) {
           </select>
           <hr />
           <div className='py-1'>
-            <button className='btn bg-warning w-100' type='button' onClick={console.log('bye')} data-bs-toggle='tooltip' data-bs-placement='top' title='Producto actualizado' >
+            <a className='btn bg-warning w-100' type='button' onClick={console.log('bye')} data-bs-toggle='tooltip' data-bs-placement='top' title='Producto actualizado' >
               <i className='fas fa-cart-plus'/> Añadir al carrito
-            </button>
+            </a>
           </div>
           <div className='py-1'>
-            <a className='btn btn-warning w-100' to='/checkout' >Realizar pedido</a>
+            <Link className='btn btn-warning w-100' to='/checkout' >Realizar pedido</Link>
           </div>
-          */}
         </div>
       </div>
     </>
   )
+
+
 }
