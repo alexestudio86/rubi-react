@@ -45,7 +45,6 @@ export function Product () {
             } );
         })();
     }, []);
-    console.log( post )
 
     return (
         <>

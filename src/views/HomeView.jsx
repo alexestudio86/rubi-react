@@ -6,7 +6,6 @@ import storeImage from '../assets/store.jpeg'
 import { Parallax } from '../components/Parallax';
 import { Contact } from '../components/Contact';
 import { FooterFull } from '../components/FooterFull';
-import './homeView.css';
 import { Link } from 'react-router-dom';
 
 
@@ -24,10 +23,10 @@ export function HomeView () {
             </div>
             <div>
                 <NavSecondary />
-                <div className='display-container'>
+                <div className='w3-display-container'>
                     <img className='bg-image w3-opacity-max' src={storeImage} alt='Store' width='1024' height='auto' />
-                    <div className='display-middle'>
-                        <Link className='w3-jumbo text-uppercase btn btn-secondary' to='store'>Tienda</Link>
+                    <div className='w3-display-middle'>
+                        <Link className='w3-jumbo text-uppercase btn btn-secondary' to='store/#header'>Tienda</Link>
                     </div>
                 </div>
                 <Parallax />

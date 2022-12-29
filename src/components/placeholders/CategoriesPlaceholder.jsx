@@ -1,5 +1,4 @@
-import { BackgroundSVG } from "./BackgroundSVG";
-import './categoriesPlaceholder.css';
+import { BackgroundSVG } from "../BackgroundSVG";
 
 export function CategoriesPlacesholder(){
     return (
