@@ -1,26 +1,65 @@
+import { FeaturedProductsPlaceholder } from './FeaturedProductsPlaceholder';
+import { CategoriesPlacesholder } from './CategoriesPlaceholder';
+import { ArchivePlaceholder } from './ArchivePlaceholder';
+
+
+
 export function ProductsPlaceholder (){
-    return (
-        <article className='row'>
-            {/* Header */}
-            <header className='placeholder-glow col-md-9 p-2'>
-                {/* Title */}
-                <h1 className='fs-4 card-title'>
-                    <span className='placeholder col-8'></span>
-                </h1>
-                <span className='placeholder fs-5 col-3 py-3 my-3' ></span>
-                <div className='d-flex justify-content-between align-items-center'>
-                    <span className='placeholder col-4'></span>
-                    <span className='placeholder col-1'></span>
+    return(
+        <main className='row'>
+            <div className="bg-secondary py-3">
+                <div className='container bg-white py-4'>
+                    <h1 className='text-center placeholder-glow'>
+                        <span className='placeholder col-3'></span>
+                    </h1>
+                    <div className='row'>
+                        <div className='col-md-4'>
+                            <FeaturedProductsPlaceholder />
+                        </div>
+                        <div className='col-md-4'>
+                            <FeaturedProductsPlaceholder />
+                        </div>
+                        <div className='col-md-4'>
+                            <FeaturedProductsPlaceholder />
+                        </div>
+                    </div>
                 </div>
-            </header>
-            {/* Buttons */}
-            <div class="placeholder-glow col-md-3">
-                {/* Image */}
-                <svg class="bd-placeholder-img placeholder w-100" xmlns='http://www.w3.org/2000/svg' role="img" aria-label="Placeholder" preserveAspectRatio='xMidYMid slice' focusable='false'>
-                    <title>Placeholder</title>
-                    <rect width='100%' height='100%' ></rect>
-                </svg>
+                <div className='container bg-white mt-4'>
+                    <h1 className='text-center placeholder-glow'>
+                        <span className='placeholder col-3' ></span>
+                    </h1>
+                    <div className='placeholder-glow'>
+                        <div className="placeholder py-4 w-100"></div>
+                    </div>
+                    <div className='row'>
+                        <div className="col-md-3">
+                            <CategoriesPlacesholder />
+                        </div>
+                        <div className="col-md-3">
+                            <CategoriesPlacesholder />
+                        </div>
+                        <div className="col-md-3">
+                            <CategoriesPlacesholder />
+                        </div>
+                        <div className="col-md-3">
+                            <CategoriesPlacesholder />
+                        </div>
+                    </div>
+                </div>
+                <div className='container bg-white mt-4'>
+                    <h1 className='text-center placeholder-glow'>
+                        <span className='placeholder col-3' ></span>
+                    </h1>
+                    <div className="row py-3">
+                        <div className="col-md-6">
+                            <ArchivePlaceholder />
+                        </div>
+                        <div className="col-md-6">
+                            <ArchivePlaceholder />
+                        </div>
+                    </div>
+                </div>
             </div>
-        </article>
+        </main>
     )
 }

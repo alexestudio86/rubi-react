@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { usePostContext, useToggleLoadingContext } from '../../store/modules/GetAllProducts';
+import { usePostsContext } from '../../store/modules/GetAllProducts';
 import { NavSecondary } from '../NavSecondary';
 
 // General function for get to unique label
@@ -38,8 +38,7 @@ const filterPostImages = ( evt, body ) => {
 
 const Products = ( ) => {
 
-  const posts = usePostContext();
-  const loading = useToggleLoadingContext();
+  const posts = usePostsContext();
 
   // List of elements to find
   const latest = ['8564846302675793158', '56465538453532244', '3316106626624603393']
@@ -67,13 +66,14 @@ const Products = ( ) => {
   return (
     <main className='row'>
       <div className='bg-secondary py-3'>
+        { /* Lo mas nuevo */ }
         <div className='container bg-white py-4'>
           <h1 className='text-center'>Lo más nuevo</h1>
           <div className='row'>
-            { posts.map( ( post, index ) => (
+            { posts.map( post => (
               <>
                 { latest.indexOf(post.id) !== -1 ?
-                  <Link className='col-md-4' to={`#`} style={ { textDecoration: 'none' } } >
+                  <Link className='col-4' to={`#`} style={ { textDecoration: 'none' } } >
                     <div className='card w3-hover-grayscale'>
                       <div style={{ background: 'linear-gradient(0deg, rgba(231,236,216,1) 0%, rgba(255,255,255,1) 27%)' }}>
                         <img src={ filterPostImages(post.images, post.content) } alt={ post.title } className='card-img-top' style={ {height: '150px', objectFit: 'contain'} } />
@@ -88,17 +88,18 @@ const Products = ( ) => {
             ) ) }
           </div>
         </div>
+        { /* Categorias */ }
         <div className='container bg-white py-4'>
           <h1 className='text-center'>Categorías</h1>
           <NavSecondary />
           <div className='row'>
             { imgs.map( img => (
-              <Link className='col-md-3' to={`#`}>
+              <Link className='col-6 col-md-3' to={`#`}>
                 <div className='py-4'>
                   <div className='card w3-display-container w3-hover-black'>
                     <img className='w3-opacity' src={img.url} alt={img.title} />
                     <div className='w3-display-middle w-100 py-2'>
-                      <h5 className='text-center fw-bold' >{ img.title }</h5>
+                      <h5 className='text-center fw-bold d-none d-lg-block' >{ img.title }</h5>
                     </div>
                   </div>
                 </div>
@@ -106,6 +107,7 @@ const Products = ( ) => {
             ) ) }
           </div>
         </div>
+        { /* Productos */ }
         <div className='container bg-white py-4'>
           <h1 className='text-center'>Archivo</h1>
           <div className='row'>
@@ -124,7 +126,7 @@ const Products = ( ) => {
                         </div>
                       </div>
                       <div className='col-md-12'>
-                        <div className='bg-light d-block d-sm-non d-flex justify-content-between align-items-center' >
+                        <div className='bg-light d-block d-sm-none d-flex justify-content-between align-items-center' >
                           <h1 className='m-0 text-secondary fs-6 fw-bold'>{ post.title }</h1>
                           <i className='far fa-caret-square-down text-primary fa-2x'></i>
                         </div>

@@ -1,14 +1,14 @@
 import Axios from 'axios';
 import { blogID, apiKey } from '../../config';
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 const baseURL = `https://www.googleapis.com/blogger/v3/blogs/${blogID}/posts?key=${apiKey}&fetchImages=true`;
 
-const postContext = React.createContext();
+const postsContext = React.createContext();
 const toggleLoadingContext = React.createContext();
 
-export function usePostContext (){
-  return useContext( postContext )
+export function usePostsContext (){
+  return useContext( postsContext )
 }
 
 export function useToggleLoadingContext (){
@@ -31,10 +31,10 @@ export function GetAllProducts ( props ) {
     }, [])
 
     return (
-      <postContext.Provider value={posts}>
+      <postsContext.Provider value={posts}>
         <toggleLoadingContext.Provider value={loading}>
             {props.children}
         </toggleLoadingContext.Provider>
-      </postContext.Provider>
+      </postsContext.Provider>
     )
 }

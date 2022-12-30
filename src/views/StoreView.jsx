@@ -1,18 +1,18 @@
 import { NavFull } from '../components/NavFull';
 import { Header } from '../components/Header';
-import { AllProductsPlaceholder } from '../components/placeholders/AllProductsPlaceholder';
-import { AllProducts } from '../components/products/AllProducts'
+import { AllProducts } from '../components/products/AllProducts';
+import { GetAllProducts } from '../store/modules/GetAllProducts';
 
 
-
-const ok = false;
 
 export function StoreView () {
     return (
         <>
             <NavFull />
             <Header />
-            { ok ? <AllProductsPlaceholder /> : <AllProducts /> }
+            <GetAllProducts>
+                <AllProducts />
+            </GetAllProducts>
         </>
     )
 }

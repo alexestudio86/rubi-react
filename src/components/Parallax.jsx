@@ -1,4 +1,4 @@
-import parallax from '../styles/parallax.css'
+import parallax from './parallax.css'
 
 
 export function Parallax( ){
