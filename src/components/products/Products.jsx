@@ -64,10 +64,9 @@ const Products = ( ) => {
   ]
 
   return (
-    <main className='row'>
-      <div className='bg-secondary py-3'>
-        { /* Lo mas nuevo */ }
-        <div className='container bg-white py-4'>
+    <main className='bg-secondary'>
+      { /* Lo mas nuevo */ }
+      <div className='container bg-white py-1'>
           <h1 className='text-center'>Lo más nuevo</h1>
           <div className='row'>
             { posts.map( post => (
@@ -87,9 +86,9 @@ const Products = ( ) => {
               </>
             ) ) }
           </div>
-        </div>
-        { /* Categorias */ }
-        <div className='container bg-white py-4'>
+      </div>
+      { /* Categorias */ }
+      <div className='container bg-white py-4'>
           <h1 className='text-center'>Categorías</h1>
           <NavSecondary />
           <div className='row'>
@@ -106,9 +105,9 @@ const Products = ( ) => {
               </Link>
             ) ) }
           </div>
-        </div>
-        { /* Productos */ }
-        <div className='container bg-white py-4'>
+      </div>
+      { /* Productos */ }
+      <div className='container bg-white py-4'>
           <h1 className='text-center'>Archivo</h1>
           <div className='row'>
             { posts.map( ( post, index ) => (
@@ -137,7 +136,6 @@ const Products = ( ) => {
               </article>
             ))}
           </div>
-        </div>
       </div>
     </main>
   )

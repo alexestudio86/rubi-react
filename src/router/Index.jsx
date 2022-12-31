@@ -2,7 +2,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import { HomeView } from '../views/HomeView';
 import { StoreView } from '../views/StoreView';
 import { NotFoundView } from '../views/NotFoundView';
-import { SelectProductView } from '../views/SelectProductView';
+import { SelectProduct } from '../components/products/SelectProduct';
 import { ProductView } from '../views/ProductView';
 
 
@@ -12,7 +12,7 @@ export function Rutas(){
             <Routes>
                 <Route path='/' element={<HomeView />} />
                 <Route path='store' element={<StoreView />} />
-                <Route path='store/product' element={<SelectProductView />} />
+                <Route path='store/product' element={<SelectProduct />} />
                 <Route path='store/product/:postID' element={<ProductView />} />
                 <Route path='*' element={<NotFoundView />} />
             </Routes>

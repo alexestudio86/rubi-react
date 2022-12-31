@@ -1,18 +1,20 @@
-import { NavFull } from '../components/NavFull';
-import { Header } from '../components/Header';
-import { AllProducts } from '../components/products/AllProducts';
+import { NavCompact } from '../components/NavCompact';
+import { Search } from '../components/Search';
 import { GetAllProducts } from '../store/modules/GetAllProducts';
+import { AllProducts } from '../components/products/AllProducts';
 
 
 
 export function StoreView () {
     return (
         <>
-            <NavFull />
-            <Header />
-            <GetAllProducts>
-                <AllProducts />
-            </GetAllProducts>
+            <NavCompact />
+            <div className='bg-secondary py-4'>
+                <Search />
+                <GetAllProducts>
+                    <AllProducts />
+                </GetAllProducts>
+            </div>
         </>
     )
 }

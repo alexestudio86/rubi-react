@@ -30,19 +30,19 @@ function Product ( ) {
             <div className='bg-light'>
                 <div className='container py-5'>
                     <div className='bg-white p-3'>
-                        <div class="bg-dark p-2">
-                            <div class="card p-2">
-                            <h1 class='fs-5 fw p-2 text-uppercase text-end'>{ post.title }</h1>
-                            <img class='w-100' />
+                        <div className='bg-dark p-2'>
+                            <div className='card p-2'>
+                            <h1 className='fs-5 fw p-2 text-uppercase text-end'>{ post.title }</h1>
+                            <img className='w-100' />
                             <nav aria-label='breadcrumb'>
-                                <ol class='breadcrumb m-0 py-1'>
-                                <li aria-current='page' class='breadcrumb-item active'>Home</li>
-                                <li class='breadcrumb-item category text-primary'><a>{ post.labels[1] }</a></li>
+                                <ol className='breadcrumb m-0 py-1'>
+                                <li aria-current='page' className='breadcrumb-item active'>Home</li>
+                                <li className='breadcrumb-item category text-primary'><a>{ post.labels[1] }</a></li>
                                 </ol>
                             </nav>
-                            <div class='row m-0 p-0'></div>
+                            <div className='row m-0 p-0'></div>
                             <hr />
-                            <select aria-label='Default select example' class='form-select' id='quantity' >
+                            <select aria-label='Default select example' className='form-select' id='quantity' >
                                 <option value='1'>1</option>
                                 <option value='2'>2</option>
                                 <option value='3'>3</option>
@@ -95,13 +95,13 @@ function Product ( ) {
                                 <option value='50'>50</option>
                             </select>
                             <hr />
-                            <div class="py-1">
-                                <button class='btn bg-warning w-100' type='button' data-bs-toggle='tooltip' data-bs-placement='top' title='Producto actualizado' >
-                                <i class='fas fa-cart-plus'/> Añadir al carrito
+                            <div className='py-1'>
+                                <button className='btn bg-warning w-100' type='button' data-bs-toggle='tooltip' data-bs-placement='top' title='Producto actualizado' >
+                                <i className='fas fa-cart-plus'/> Añadir al carrito
                                 </button>
                             </div>
-                            <div class="py-1">
-                                <a class="btn btn-warning w-100" href='#' >Realizar pedido</a>
+                            <div className='py-1'>
+                                <a className='btn btn-warning w-100' href='#' >Realizar pedido</a>
                             </div>
                             </div>
                         </div>

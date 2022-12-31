@@ -1,15 +1,17 @@
 import { NavCompact } from '../components/NavCompact';
-import Product from "../components/products/Product";
 import { GetProduct } from '../store/modules/GetProduct';
+import { SelectProduct } from '../components/products/SelectProduct';
 
 
 export function ProductView ( ){
   return (
     <>
       <NavCompact />
-      <GetProduct>
-        <Product />
-      </GetProduct>
+      <div className='bg-secondary py-3'>
+        <GetProduct>
+          <SelectProduct />
+        </GetProduct>
+      </div>
     </>
   )
 }
