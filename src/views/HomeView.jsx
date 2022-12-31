@@ -17,9 +17,9 @@ export function HomeView () {
                 <Carousel />
             </div>
             <div>
+                <Parallax />
                 <NavSecondary />
                 <Store />
-                <Parallax />
                 <Contact />
                 <FooterFull />
             </div>

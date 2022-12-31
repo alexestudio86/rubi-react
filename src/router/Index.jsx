@@ -2,7 +2,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import { HomeView } from '../views/HomeView';
 import { StoreView } from '../views/StoreView';
 import { NotFoundView } from '../views/NotFoundView';
-import { SelectProduct } from '../components/products/SelectProduct';
+import { SelectProduct } from '../views/SelectProduct';
 import { ProductView } from '../views/ProductView';
 
 

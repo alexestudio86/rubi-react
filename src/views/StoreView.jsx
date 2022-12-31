@@ -2,6 +2,7 @@ import { NavCompact } from '../components/NavCompact';
 import { Search } from '../components/Search';
 import { GetAllProducts } from '../store/modules/GetAllProducts';
 import { AllProducts } from '../components/products/AllProducts';
+import { FooterCompact } from '../components/FooterCompact';
 
 
 
@@ -15,6 +16,7 @@ export function StoreView () {
                     <AllProducts />
                 </GetAllProducts>
             </div>
+            <FooterCompact/>
         </>
     )
 }

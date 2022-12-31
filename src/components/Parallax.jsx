@@ -1,8 +1,8 @@
-import parallax from './parallax.css'
+import parallax from './parallax.css';
 
 
 export function Parallax( ){
-    return <>
+    return (
         <div className='d-flex justify-content-center bg-parallax' id='parallax'>
             <div className='align-self-center text-center'>
                 <h1 className='text-white fs-1'>Producto Orgánico</h1>
@@ -10,5 +10,5 @@ export function Parallax( ){
                 <a className='btn bg-white fs-3' href='#'>Saber mas</a>
             </div>
         </div>
-    </>
+    )
 }
