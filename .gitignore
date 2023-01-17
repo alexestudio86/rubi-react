@@ -24,4 +24,4 @@ yarn-error.log*
 
 
 # Personal ignore
-config.js
+/cofig/config.js

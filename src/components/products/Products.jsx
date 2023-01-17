@@ -1,26 +1,7 @@
 import { Link } from 'react-router-dom';
-import { usePostsContext } from '../../store/modules/GetAllProducts';
-import { NavSecondary } from '../NavSecondary';
+import { useLoaderData } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 
-  // List of images for categories
-  const imgs = [
-    {
-      title:  'Crema para peinar',
-      url: require('../../assets/category-01.jpg')
-    },
-    {
-      title: 'Multivitamínico',
-      url: require('../../assets/category-02.jpg')
-    },
-    {
-      title: 'Mascarillas',
-      url:  require('../../assets/category-03.jpg')
-    },
-    {
-      title: 'Shampoo',
-      url:  require('../../assets/category-04.jpg')
-    }
-  ]
 
 // General function for get to unique label
 const filterLabels = (e) => {
@@ -31,7 +12,7 @@ const filterLabels = (e) => {
   } else {
     return e[1]
   }
-};
+}
 
 // General function fot get to unique image
 const filterPostImages = ( evt, body ) => {
@@ -53,96 +34,167 @@ const filterPostImages = ( evt, body ) => {
       return getUrlsFromText[0].replace('s1024', 's320')
     }
   }else{
-    console.log('images')
+    console.log('No hay imágenes')
   }
-};
+}
 
 
-const Products = ( ) => {
-
-  const posts = usePostsContext();
-
+export function FeaturedProducts ( ) {
 
   // List of elements to find
-  const latest = ['8564846302675793158', '56465538453532244', '3316106626624603393']
-
+  const latest = ['3316106626624603393','3125816805209103922', '56465538453532244'];
+  const { posts } = useLoaderData();
+  const items = posts.items
 
   return (
-    <main className='bg-secondary'>
-      { /* Lo mas nuevo */ }
-      <div className='container bg-white py-1'>
-          <h1 className='text-center'>Lo más nuevo</h1>
-          <div className='row'>
-            { posts.map( (post, i) => (
-              <>
-                { latest.indexOf(post.id) !== -1 ?
-                  <Link key={ i } className='col-4' to={`#`} style={ { textDecoration: 'none' } } >
-                    <div className='card w3-hover-grayscale'>
-                      <div style={{ background: 'linear-gradient(0deg, rgba(231,236,216,1) 0%, rgba(255,255,255,1) 27%)' }}>
-                        <img src={ filterPostImages(post.images, post.content) } alt={ post.title } className='card-img-top' style={ {height: '150px', objectFit: 'contain'} } />
-                      </div>
-                      <div className='card-body'>
-                        <h5 className='card-title text-end'>{post.title}</h5>
-                      </div>
-                    </div>
-                  </Link>
-                : '' }
-              </>
-            ) ) }
-          </div>
-      </div>
-      { /* Categorias */ }
-      <div className='container bg-white py-4'>
-          <h1 className='text-center'>Categorías</h1>
-          <NavSecondary />
-          <div className='row'>
-            { imgs.map( (img, idx) => (
-              <Link key={idx} className='col-6 col-md-3' to={`#`}>
-                <div className='py-4'>
-                  <div className='card w3-display-container w3-hover-black'>
-                    <img className='w3-opacity' src={img.url} alt={img.title} />
-                    <div className='w3-display-middle w-100 py-2'>
-                      <h5 className='text-center fw-bold d-none d-lg-block' >{ img.title }</h5>
-                    </div>
+    <>
+      <div className='row'>
+        { items ? items.map( item => (
+            <>
+            { latest.indexOf(item.id) !== -1 ?
+              <Link key={ item.id } className='col-4' to={ `./product/${item.id}` } style={ { textDecoration: 'none' } } >
+                <div className='card w3-hover-grayscale'>
+                  <div style={{ background: 'linear-gradient(0deg, rgba(231,236,216,1) 0%, rgba(255,255,255,1) 27%)' }}>
+                    <img src={ filterPostImages(item.images, item.content) } alt={ item.title } className='card-img-top' style={ {height: '150px', objectFit: 'contain'} } />
+                  </div>
+                  <div className='card-body'>
+                    <h5 className='card-title text-end'>{item.title}</h5>
                   </div>
                 </div>
               </Link>
-            ) ) }
-          </div>
+            : '' }
+            </>
+          ) ) :
+          'No hay post'
+        }
       </div>
-      { /* Productos */ }
-      <div className='container bg-white py-4'>
-          <h1 className='text-center'>Archivo</h1>
-          <div className='row'>
-            { posts.map( ( post, index ) => (
-              <article key={index} className='col-6 col-md-4 p-2' >
-                <Link to={ `./product/${post.id}` } style={ {textDecoration: 'none'} } >
-                  <div className='card p-2 w3-hover-shadow'>
-                    <div className='row'>
-                      <header className='col-md-9 d-none d-sm-block'>
-                          <h1 className='fs-4 text-uppercase text-primary card-title'>{ post.title }</h1> 
-                          <span className='fs-5 badge bg-secondary'>{ filterLabels( post.labels ) }</span>
-                      </header>
-                      <div className='col-md-3'>
-                        <div style={{ background: 'linear-gradient(0deg, rgba(231,236,216,1) 0%, rgba(255,255,255,1) 27%)' }}>
-                          <img className='w-100 rounded-circle' style={{ height: '150px', objectFit: 'cover'}} alt={post.title} src={ filterPostImages(post.images, post.content) } />
-                        </div>
-                      </div>
-                      <div className='col-md-12'>
-                        <div className='bg-light d-block d-sm-none d-flex justify-content-between align-items-center' >
-                          <h1 className='m-0 text-secondary fs-6 fw-bold'>{ post.title }</h1>
-                          <i className='far fa-caret-square-down text-primary fa-2x'></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </article>
-            ))}
-          </div>
-      </div>
-    </main>
+    </>
   )
 }
 
-export default Products;
+
+export function ResultProducts ( ) {
+
+  const location = useLocation();
+  const { posts } = useLoaderData();
+  const items = posts.items
+
+  return (
+      <div className='row'>
+        { items ? items.map( ( item, index ) => (
+          <article key={index} className='col-6 col-md-4 p-2' >
+            <Link to={ `/products/${item.id}` } style={ {textDecoration: 'none'} } >
+              <div className='card p-2 w3-hover-shadow'>
+                <div className='row'>
+                  <header className='col-md-9 d-none d-sm-block'>
+                    <h1 className='fs-4 text-uppercase text-primary card-title'>{ item.title }</h1> 
+                    <span className='fs-5 badge bg-secondary'>{ filterLabels( item.labels ) }</span>
+                  </header>
+                  <div className='col-md-3'>
+                    <div style={{ background: 'linear-gradient(0deg, rgba(231,236,216,1) 0%, rgba(255,255,255,1) 27%)' }}>
+                      <img className='w-100 rounded-circle' style={{ height: '150px', objectFit: 'cover'}} alt={item.title} src={ filterPostImages(item.images, item.content) } />
+                    </div>
+                  </div>
+                  <div className='col-md-12'>
+                    <div className='bg-light d-block d-sm-none d-flex justify-content-between align-items-center' >
+                      <h1 className='m-0 text-secondary fs-6 fw-bold'>{ item.title }</h1>
+                      <i className='far fa-caret-square-down text-primary fa-2x'></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </article>
+          )) :
+          console.log('no hay post')
+        }
+
+        { location.pathname !== '/' &&
+          <div className='d-flex justify-content-between'>
+            <Link className='w3-button w3-light-gray' to="..">Anterior</Link>
+            { posts.nextPageToken &&  <Link className='w3-button w3-light-gray' to={`?pageToken=${posts.nextPageToken}`}>Siguiente</Link> }
+          </div>
+        }
+      </div>
+  )
+}
+
+
+export function LabelProductsHome ( {labels} ) {
+  return (
+    <>
+        <ul className="w3-cell-row w3-cell-middle w3-light-gray">
+            { labels ? labels.map( (label, index) => (
+                <li className="w3-cell w3-center w3-padding-small">
+                    <a href={`search?labels=${label.label}`} key={index} className='w3-button w3-white text-uppercase' style={ {textDecoration: 'none'} }>{ label.name }</a>
+                </li>
+                ) ) : <span>No hay etiquetas</span>
+            }
+        </ul>
+    </>
+  )
+}
+
+
+export function LabelProductsPages ( {labels} ) {
+  return (
+    <>
+      { labels ? labels.map( (label, index) => (
+          <a href={label.label} key={index} className='w3-padding-small' style={ {textDecoration: 'none'} }>
+            <span className='w3-light-gray w3-padding-small w3-text-blue'>{ label.name }</span>
+          </a>
+        ) ) : <span>No hay etiquetas</span>
+      }
+    </>
+  )
+}
+
+
+export function CategoryProductsHome ( {categories} ){
+
+  return (
+    <>
+      <div className='row'>
+        { categories ? categories.map( (category, idx) => (
+            <div key={idx} className='col-6 col-md-3'>
+              <div className="py-4">
+                <Link to={`#`} className='card w3-display-container w3-hover-black' style={ {textDecoration: 'none'} }>
+                    <img className='w3-opacity' width='320' height='240px' src={category.image} alt={category.name} />
+                    <div className="w3-display-middle w-100 py-2">
+                      <figcaption className='text-center fw-bold text-uppercase d-none d-lg-block' >{ category.name }</figcaption>
+                    </div>
+                </Link>
+              </div>
+            </div>
+          ) ) : <span>Sin categorías</span>
+        }
+      </div>
+    </>
+  )
+
+}
+
+
+export function CategoryProductsPages ( {categories} ){
+
+  return (
+    <>
+      <ul className='w3-ul w3-hoverable'>
+        { categories ? categories.map( (category, idx) => (
+            <li key={idx} className='w3-padding'>
+              <Link to={`#`} className='w3-row' style={ {textDecoration: 'none'} }>
+                <div className='w3-col s2'>
+                  <img className='w-100' src={category.image} alt={category.name} />
+                </div>
+                <div className="w3-rest w3-padding">
+                  <h2 className='w3-medium' >{ category.name }</h2>
+                </div>
+              </Link>
+            </li>
+          ) ) : <span>Sin categorías</span>
+        }
+      </ul>
+    </>
+  )
+
+}

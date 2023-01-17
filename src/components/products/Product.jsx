@@ -1,4 +1,4 @@
-import { usePostContext } from '../../store/modules/GetProduct';
+import { useLoaderData } from 'react-router-dom';
 
 
 const dummyImage = 'https://blogger.googleusercontent.com/img/a/AVvXsEh7Jx5rNMA2KDw2pXf65nS5ybDjI4Hd8VhHil6KU6oiOZY9KxWzcQK7K49JzIY1OwuT8lIXHHD8-wC-EZb88ceQSt8XHwkeJl-ogDxHtwY9zt7s0OVDlm8MXDanI7h2rl_vl-dCK-kaTy2hG1x6BbfxoEJdGECG1VK8BjBCIqjjAOdzmlKcBGl9ZK1tfg=s640';
@@ -38,10 +38,9 @@ const getLabel = (label) => {
     }
 };
 
-function Product ( ) {
+export function ResultProduct ( ) {
 
-    const post = usePostContext();
-
+    const { post } = useLoaderData();
 
     return(
         <>
@@ -122,6 +121,3 @@ function Product ( ) {
         </>
     )
 }
-
-
-export default Product

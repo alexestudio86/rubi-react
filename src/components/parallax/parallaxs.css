@@ -1,0 +1,19 @@
+@media (min-width:576px){
+    .bg-parallax {
+      min-height:             600px;
+      background-attachment:  fixed;
+      background-size:        cover;
+      background-position:    50% 50%;
+      background-image:       url('../../assets/parallax/bg-parallax.jpeg')
+    }
+}
+@media (max-width:576px){
+    .bg-parallax {
+      background-image:       url('../../assets/parallax/bg-parallax.jpeg');
+      height:                 100vh;
+      width:                  100%;
+      background-position:    center;
+      background-repeat:      no-repeat;
+      background-size:        cover;
+    }
+}
