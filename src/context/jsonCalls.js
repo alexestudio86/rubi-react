@@ -9,6 +9,7 @@ export async function getHomeProducts ( ) {
   
 }
 
+
 export async function getAllProducts ( ) {
   
   const res = await fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogID}/posts?&key=${apiKey}&fetchImages=true`);
@@ -16,6 +17,7 @@ export async function getAllProducts ( ) {
   return { posts: posts }
   
 }
+
 
 export function getAllLabels ( ) {
 
@@ -57,9 +59,18 @@ export function getAllCategories ( ) {
 }
 
 
-export async function getProduct ( ) {
+export async function getProduct ( { params } ) {
   
-  const res = await fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogID}/posts/2625516280607808464?&key=${apiKey}&fetchImages=true`);
+  const res = await fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogID}/posts/${params.itemID}?&key=${apiKey}&fetchImages=true`);
+  const post  = await res.json();
+  return { post: post }
+
+}
+
+
+export async function getPagination ( ) {
+  
+  const res = await fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogID}/posts?&key=${apiKey}pageToken=CgkIChjgz8WE0i8Qoba7_uqq_oxo&fetchImages=true`);
   const post  = await res.json();
   return { post: post }
 

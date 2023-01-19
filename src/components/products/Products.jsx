@@ -1,6 +1,5 @@
-import { Link } from 'react-router-dom';
-import { useLoaderData } from 'react-router-dom';
-import { useLocation } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
+import { useLocation, useLoaderData, useSearchParams } from 'react-router-dom';
 
 
 // General function for get to unique label
@@ -75,9 +74,25 @@ export function FeaturedProducts ( ) {
 
 export function ResultProducts ( ) {
 
+  // Detect patname
   const location = useLocation();
+
   const { posts } = useLoaderData();
   const items = posts.items
+
+
+  const navigate = useNavigate();
+  const [params, setParams] = useSearchParams()
+
+  const handleNext = () => {
+    console.log(location)
+    navigate(
+      {
+        pathname: 'search',
+        search:   '?some=search-string'
+      }
+    )
+  }
 
   return (
       <div className='row'>
@@ -110,10 +125,12 @@ export function ResultProducts ( ) {
         }
 
         { location.pathname !== '/' &&
-          <div className='d-flex justify-content-between'>
-            <Link className='w3-button w3-light-gray' to="..">Anterior</Link>
-            { posts.nextPageToken &&  <Link className='w3-button w3-light-gray' to={`?pageToken=${posts.nextPageToken}`}>Siguiente</Link> }
-          </div>
+          (
+            <div className='d-flex justify-content-between'>
+              <button className='w3-button w3-light-gray' >Anterior</button>
+              { posts.nextPageToken &&  <button className='w3-button w3-light-gray' onClick={handleNext} >Siguiente</button> }
+            </div>
+          )
         }
       </div>
   )
@@ -151,7 +168,6 @@ export function LabelProductsPages ( {labels} ) {
 
 
 export function CategoryProductsHome ( {categories} ){
-
   return (
     <>
       <div className='row'>
@@ -159,7 +175,7 @@ export function CategoryProductsHome ( {categories} ){
             <div key={idx} className='col-6 col-md-3'>
               <div className="py-4">
                 <Link to={`#`} className='card w3-display-container w3-hover-black' style={ {textDecoration: 'none'} }>
-                    <img className='w3-opacity' width='320' height='240px' src={category.image} alt={category.name} />
+                    <img className='w3-opacity w-100' width='320' height='240px' src={category.image} alt={category.name} style={ {width: '100%', height: 'auto', objectFit: 'cover'} } />
                     <div className="w3-display-middle w-100 py-2">
                       <figcaption className='text-center fw-bold text-uppercase d-none d-lg-block' >{ category.name }</figcaption>
                     </div>
@@ -176,7 +192,6 @@ export function CategoryProductsHome ( {categories} ){
 
 
 export function CategoryProductsPages ( {categories} ){
-
   return (
     <>
       <ul className='w3-ul w3-hoverable'>
