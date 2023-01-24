@@ -3,7 +3,7 @@ import { blogID, apiKey } from '../config/config';
 
 export async function getHomeProducts ( ) {
   
-  const res = await fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogID}/posts?maxResults=6&key=${apiKey}&fetchImages=true`);
+  const res = await fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogID}/posts?key=${apiKey}&maxResults=6&fetchImages=true&fields=items(id,url,title,labels,images)`);
   const posts  = await res.json();
   return { posts: posts }
   
@@ -12,7 +12,7 @@ export async function getHomeProducts ( ) {
 
 export async function getAllProducts ( ) {
   
-  const res = await fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogID}/posts?&key=${apiKey}&fetchImages=true`);
+  const res = await fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogID}/posts?&key=${apiKey}&fetchImages=true&fields=nextPageToken,items(id,url,title,labels,images)`);
   const posts  = await res.json();
   return { posts: posts }
   
