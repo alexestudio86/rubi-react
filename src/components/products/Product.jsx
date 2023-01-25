@@ -1,7 +1,6 @@
 import { useLoaderData } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Toasts } from '../toast/Toasts';
-
+import { Modals } from '../modal/Modals';
 
 
 const dummyImage = 'https://blogger.googleusercontent.com/img/a/AVvXsEh7Jx5rNMA2KDw2pXf65nS5ybDjI4Hd8VhHil6KU6oiOZY9KxWzcQK7K49JzIY1OwuT8lIXHHD8-wC-EZb88ceQSt8XHwkeJl-ogDxHtwY9zt7s0OVDlm8MXDanI7h2rl_vl-dCK-kaTy2hG1x6BbfxoEJdGECG1VK8BjBCIqjjAOdzmlKcBGl9ZK1tfg=s640';
@@ -42,17 +41,25 @@ const getLabel = (label) => {
 
 export function ResultProduct ( ) {
 
+    //All data
     const { post } = useLoaderData();
 
+    //Options select constructor
     const [ optionsForm, setOptionsForm ] = useState([]);
-    //For this example, does not work setOptionsForm
     for (let index = 1; index > 0 && index <= 50; index++) {
         optionsForm.push(index)
     };
 
+    //Quantity
+    const [ quantity, setQuantity ] = useState();
+    const ae86 = ( evt ) => {
+        setQuantity(evt.target.value);
+        console.log(quantity)
+    }
+
+    //Add events to variants buttons
     const [ variantProduct, setvariantProduct ] = useState();
     useEffect( ( ) => {
-        //Add events to variants buttons
         const allVariants = document.querySelectorAll('form.form-switch input')
         Array.from(allVariants).map( (variant, index) => variant.addEventListener('click', ( ) =>
             {
@@ -63,16 +70,14 @@ export function ResultProduct ( ) {
     },[] );
 
 
-    const [showA, setShowA] = useState(true);
-    const showTooltip = () => {
-        console.log('star')
+    const [show, setShow] = useState(false);
+    const validateVariant = ( ) => {
+        !variantProduct && setShow(!show)
     };
 
-    //Hide Tooltip
-    const hideTooltip = () => {
-        console.log('ae86')
-    };
-
+    const addCar = ( {item} ) => {
+        console.log(item)
+    }
 
     return(
         <>
@@ -88,7 +93,7 @@ export function ResultProduct ( ) {
                 <hr className='w3-border' />
                 <div className='row m-0 p-0' dangerouslySetInnerHTML={{__html: post.content}}></div>
                 <hr className='w3-border' />
-                <select aria-label='Default select example' className='form-select' id='quantity' >
+                <select aria-label='Default select example' className='form-select' id='quantity' onChange={ae86} >
 
                     { optionsForm.map( (optionForm, index) => <option key={index} value={optionForm}>{optionForm}</option>) }
 
@@ -96,12 +101,25 @@ export function ResultProduct ( ) {
 
                 <hr className='w3-border' />
                 <div className='py-1'>
-                    <button className='btn bg-warning w-100' type='button' onClick={showTooltip} >
+                    <button className='btn bg-warning w-100' type='button' onClick={ () => {
+                        validateVariant();
+                        variantProduct && addCar(
+                                {
+                                    item: {
+                                        id:         post.id,
+                                        title:      post.title,
+                                        picture:    post.images[0] ? post.images[0].url.replace("s1024","s90") : dummyImage,
+                                        quantity:   1,
+                                        price:      300
+                                    }
+                                }
+                            )
+                        }} >
                         <i className='fas fa-cart-plus'/> Añadir al carrito
                     </button>
                 </div>
             </div>
-            <Toasts showA={showA} />
+            <Modals show={show} stateChanger={setShow} text={{title: "Rubi Chavez dice:", body: "Seleccione una variante"}} />
         </>
     )
 }
