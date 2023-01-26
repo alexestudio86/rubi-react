@@ -1,5 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useLocation, useLoaderData, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useLocation, useLoaderData, useSearchParams } from 'react-router-dom';
 
 
 // General function for get to unique label

@@ -1,4 +1,4 @@
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Modals } from '../modal/Modals';
 
@@ -51,36 +51,47 @@ export function ResultProduct ( ) {
     };
 
     //Quantity
-    const [ quantity, setQuantity ] = useState();
-    const ae86 = ( evt ) => {
-        setQuantity(evt.target.value);
-        console.log(quantity)
-    }
+    const [ quantity, setQuantity ] = useState(1);
 
     //Add events to variants buttons
-    const [ variantProduct, setvariantProduct ] = useState();
+    const [ variantDetails, setVariantDetails ] = useState({});
     useEffect( ( ) => {
         const allVariants = document.querySelectorAll('form.form-switch input')
-        Array.from(allVariants).map( (variant, index) => variant.addEventListener('click', ( ) =>
-            {
+        Array.from(allVariants).map( (variant, index) => variant.addEventListener('click', ( ) => {
                 variant.setAttribute('key', index)
-                setvariantProduct(variant.value)
-            }
-        ) )
+                setVariantDetails(
+                    {
+                        variantName: variant.name,
+                        variantPrice: variant.value
+                    }
+                )
+            }) )
     },[] );
 
 
     const [show, setShow] = useState(false);
+    //SetParams
+    const [params, setParams] = useSearchParams();
     const validateVariant = ( ) => {
-        !variantProduct && setShow(!show)
+        if( Object.entries(variantDetails).length == 0 ){
+            setParams(
+                {
+                  variantSelected:   false
+                }
+            );
+            setShow(!show);
+        }
     };
 
-    const addCar = ( {item} ) => {
+    const addCar = ( item ) => {
         console.log(item)
     }
 
+
+
     return(
         <>
+
             <div className='p-3'>
                 <h1 className='fs-5 fw p-2'>{ post.title }</h1>
                 <img className='w-100' alt={ post.title } src={ getImage(post.images, post.content) } />
@@ -93,9 +104,9 @@ export function ResultProduct ( ) {
                 <hr className='w3-border' />
                 <div className='row m-0 p-0' dangerouslySetInnerHTML={{__html: post.content}}></div>
                 <hr className='w3-border' />
-                <select aria-label='Default select example' className='form-select' id='quantity' onChange={ae86} >
+                <select aria-label='Default select example' className='form-select' id='quantity' name='cantidad' defaultValue={quantity} onChange={ e => setQuantity( parseInt(e.target.value) )} >
 
-                    { optionsForm.map( (optionForm, index) => <option key={index} value={optionForm}>{optionForm}</option>) }
+                    { optionsForm.map( (optionForm, index) => <option key={index} label={optionForm} value={optionForm}>{optionForm}</option> ) }
 
                 </select>
 
@@ -103,15 +114,14 @@ export function ResultProduct ( ) {
                 <div className='py-1'>
                     <button className='btn bg-warning w-100' type='button' onClick={ () => {
                         validateVariant();
-                        variantProduct && addCar(
+                        Object.entries(variantDetails).length != 0 && addCar(
                                 {
-                                    item: {
-                                        id:         post.id,
-                                        title:      post.title,
-                                        picture:    post.images[0] ? post.images[0].url.replace("s1024","s90") : dummyImage,
-                                        quantity:   1,
-                                        price:      300
-                                    }
+                                    id:         post.id     || 911,
+                                    name:       post.title  || 'Dummy Title',
+                                    variant:    variantDetails.variantName || 'Dummy Details',
+                                    price:      variantDetails.variantPrice || 300,
+                                    quantity:   quantity || 1,
+                                    picture:    post.images[0] ? post.images[0].url.replace("s1024","s90") : dummyImage
                                 }
                             )
                         }} >
@@ -119,7 +129,7 @@ export function ResultProduct ( ) {
                     </button>
                 </div>
             </div>
-            <Modals show={show} stateChanger={setShow} text={{title: "Rubi Chavez dice:", body: "Seleccione una variante"}} />
+            { params.get('variantSelected') && <Modals show={show} stateChanger={setShow} text={{title: "Rubi Chavez dice:", body: "Seleccione una variante"}} />  }
         </>
     )
 }
