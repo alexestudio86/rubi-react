@@ -1,6 +1,7 @@
 import { useLoaderData, useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Modals } from '../modal/Modals';
+import { useCarContext, useUpdateCarContext } from '../../context/CarProvider';
 
 
 const dummyImage = 'https://blogger.googleusercontent.com/img/a/AVvXsEh7Jx5rNMA2KDw2pXf65nS5ybDjI4Hd8VhHil6KU6oiOZY9KxWzcQK7K49JzIY1OwuT8lIXHHD8-wC-EZb88ceQSt8XHwkeJl-ogDxHtwY9zt7s0OVDlm8MXDanI7h2rl_vl-dCK-kaTy2hG1x6BbfxoEJdGECG1VK8BjBCIqjjAOdzmlKcBGl9ZK1tfg=s640';
@@ -41,36 +42,37 @@ const getLabel = (label) => {
 
 export function ResultProduct ( ) {
 
-    //All data
+    //Get post data data
     const { post } = useLoaderData();
 
-    //Options select constructor
+    //Create Select options
     const [ optionsForm, setOptionsForm ] = useState([]);
     for (let index = 1; index > 0 && index <= 50; index++) {
         optionsForm.push(index)
     };
 
-    //Quantity
+    //Toggle modal variants
+    const [show, setShow] = useState(false);
+
+    //Get QUANTITY
     const [ quantity, setQuantity ] = useState(1);
 
-    //Add events to variants buttons
+    //Get VARIANTS and set events to variants buttons
     const [ variantDetails, setVariantDetails ] = useState({});
     useEffect( ( ) => {
         const allVariants = document.querySelectorAll('form.form-switch input')
         Array.from(allVariants).map( (variant, index) => variant.addEventListener('click', ( ) => {
-                variant.setAttribute('key', index)
-                setVariantDetails(
-                    {
-                        variantName: variant.name,
-                        variantPrice: variant.value
-                    }
-                )
-            }) )
+            variant.setAttribute('key', index);
+            setVariantDetails(
+                {
+                    variantName:    variant.id || 911,
+                    variantPrice:   variant.value
+                }
+            );
+        }) )
     },[] );
 
-
-    const [show, setShow] = useState(false);
-    //SetParams
+    //Validate variants and SetParams
     const [params, setParams] = useSearchParams();
     const validateVariant = ( ) => {
         if( Object.entries(variantDetails).length == 0 ){
@@ -83,15 +85,11 @@ export function ResultProduct ( ) {
         }
     };
 
-    const addCar = ( item ) => {
-        console.log(item)
-    }
-
-
+    const car         =   useCarContext();
+    const updateCar   =   useUpdateCarContext();
 
     return(
         <>
-
             <div className='p-3'>
                 <h1 className='fs-5 fw p-2'>{ post.title }</h1>
                 <img className='w-100' alt={ post.title } src={ getImage(post.images, post.content) } />
@@ -114,11 +112,15 @@ export function ResultProduct ( ) {
                 <div className='py-1'>
                     <button className='btn bg-warning w-100' type='button' onClick={ () => {
                         validateVariant();
-                        Object.entries(variantDetails).length != 0 && addCar(
+                        Object.entries(variantDetails).length != 0 && updateCar( {actionType: 'CHECK_ITEM'},
                                 {
                                     id:         post.id     || 911,
                                     name:       post.title  || 'Dummy Title',
-                                    variant:    variantDetails.variantName || 'Dummy Details',
+                                    variants:   [
+                                        {
+                                            name: variantDetails.variantName || 'Dummy Variant Details'
+                                        }
+                                    ],
                                     price:      variantDetails.variantPrice || 300,
                                     quantity:   quantity || 1,
                                     picture:    post.images[0] ? post.images[0].url.replace("s1024","s90") : dummyImage

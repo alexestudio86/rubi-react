@@ -47,10 +47,10 @@ export function FeaturedProducts ( ) {
   return (
     <>
       <div className='row'>
-        { items ? items.map( item => (
+        { items ? items.map( (item, index) => (
             <>
             { latest.indexOf(item.id) !== -1 ?
-              <Link key={ item.id } className='col-4' to={ `./product/${item.id}` } style={ { textDecoration: 'none' } } >
+              <Link key={ index } className='col-4' to={ `./product/${item.id}` } style={ { textDecoration: 'none' } } >
                 <div className='card w3-hover-grayscale'>
                   <div style={{ background: 'linear-gradient(0deg, rgba(231,236,216,1) 0%, rgba(255,255,255,1) 27%)' }}>
                     <img src={ filterPostImages(item.images, item.content) } alt={ item.title } className='card-img-top' style={ {height: '150px', objectFit: 'contain'} } />
@@ -126,7 +126,7 @@ export function ResultProducts ( ) {
         { location.pathname !== '/' &&
           (
             <div className='d-flex justify-content-between'>
-              <button className='w3-button w3-light-gray' >Anterior</button>
+              { params.get('some') && <button className='w3-button w3-light-gray' >Anterior</button> }
               { posts.nextPageToken &&  <button className='w3-button w3-light-gray' onClick={handleNext} >Siguiente</button> }
             </div>
           )

@@ -6,7 +6,6 @@ import { ProductsView } from "../views/ProductsView";
 import { PaginationView } from "../views/PaginationView";
 import { ProductView } from "../views/ProductView";
 import { getHomeProducts, getAllProducts, getPagination, getProduct } from "../context/jsonCalls";
-import { Dummies } from "../components/dummy/Dummies";
 
 
 export const rutas = createBrowserRouter([

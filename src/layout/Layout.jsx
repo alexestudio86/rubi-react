@@ -7,6 +7,7 @@ import { Parallax } from './Parallax';
 import { Footer } from './Footer';
 
 
+
 export function Layout( ){
     const location = useLocation();
     return(

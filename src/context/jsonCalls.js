@@ -12,7 +12,7 @@ export async function getHomeProducts ( ) {
 
 export async function getAllProducts ( ) {
   
-  const res = await fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogID}/posts?&key=${apiKey}&fetchImages=true&fields=nextPageToken,items(id,url,title,labels,images)`);
+  const res = await fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogID}/posts?&key=${apiKey}&fetchImages=true&fields=nextPageToken,items(id,url,title,labels,images)&maxResults=200`);
   const posts  = await res.json();
   return { posts: posts }
   
@@ -41,16 +41,25 @@ export function getAllCategories ( ) {
     {
       name:  'Crema para peinar',
       image: require('../assets/categoryProducts/category-01.jpg')
-    },
-    {
+    },{
+      name: 'Fijación',
+      image: require('../assets/categoryProducts/category-01.jpg')
+    },{
+      name: 'Herramientas',
+      image: require('../assets/categoryProducts/category-01.jpg')
+    },{
+      name: 'Mascarilla Matizante',
+      image:  require('../assets/categoryProducts/category-01.jpg')
+    },{
+      name: 'Multifuncionales',
+      image:  require('../assets/categoryProducts/category-01.jpg')
+    },{
       name: 'Multivitamínico',
       image: require('../assets/categoryProducts/category-02.jpg')
-    },
-    {
-      name: 'Mascarillas',
-      image:  require('../assets/categoryProducts/category-03.jpg')
-    },
-    {
+    },{
+      name: 'Semipermanentes',
+      image:  require('../assets/categoryProducts/category-01.jpg')
+    },{
       name: 'Shampoo',
       image:  require('../assets/categoryProducts/category-04.jpg')
     }

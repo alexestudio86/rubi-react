@@ -1,7 +1,10 @@
 import { Link, NavLink } from 'react-router-dom';
-
+import { useCarContext } from '../../context/CarProvider'
 
 export function NavCompact(){
+
+    const car = useCarContext();
+
     return (
         <nav className='navbar navbar-dark bg-dark sticky-top'>
             <div className='container'>
@@ -10,7 +13,8 @@ export function NavCompact(){
                 </Link>
                 <Link className='btn btn-dark d-block d-sm-none' to='/checkout'>
                     <i className='fas fa-shopping-cart fa-lg me-1'></i>
-                    <span className='badge rounded-pill bg-danger'>0</span>
+                    {/* Car lenght */}
+                    <span className='badge rounded-pill bg-danger'>{ car.length }</span>
                 </Link>
             </div>
         </nav>
@@ -18,11 +22,15 @@ export function NavCompact(){
 }
 
 
-
+//Active or inactive class
 const active = 'nav-link text-uppercase active';
 const inactive = 'nav-link text-uppercase';
 
+
 export function NavFull( ){
+    
+    const car = useCarContext();
+
     return (
         <nav className='navbar navbar-expand-lg navbar-dark bg-dark sticky-top' id='navfull'>
             <div className='container'>
@@ -34,7 +42,8 @@ export function NavFull( ){
                 </button>
                 <NavLink className='btn btn-dark d-block d-sm-none' to='/checkout' >
                     <i className='fas fa-shopping-cart fa-lg me-1'></i>
-                    <span className='badge rounded-pill bg-danger'></span>
+                    {/* Car lenght */}
+                    <span className='badge rounded-pill bg-danger'>{ car.length }</span>
                 </NavLink>
                 <div className='collapse navbar-collapse' id='navbarSupportedContent'>
                     <ul className='navbar-nav me-auto mb-2 mb-lg-0'>

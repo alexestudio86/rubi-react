@@ -1,4 +1,6 @@
 import { WhatsappShareButton, FacebookShareButton, EmailShareButton } from 'react-share';
+import { useEffect } from 'react';
+
 
 export function ShareButtons ( ){
     return (
