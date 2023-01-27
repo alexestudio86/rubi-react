@@ -1,20 +1,34 @@
 import { useState, useContext, createContext } from "react"
 
-//Functions for create Car
+//Functions for create hooks
+const carChangesTypesContext = createContext();
+const updateCarChangesTypesContext = createContext();
 const carContext = createContext();
 const updateCarContext = createContext();
 
 //Custom Hooks
+export function useCarChangesTypesContext ( ){
+  return useContext(carChangesTypesContext)
+}
+export function useUpdateCarChangesTypesContext ( ){
+  return useContext(updateCarChangesTypesContext)
+}
 export function useCarContext ( ){
   return useContext(carContext)
 }
-
 export function useUpdateCarContext ( ){
   return useContext(updateCarContext)
 }
 
+
+
 export function CarProvider ( {children} ) {
 
+  const [carChangesTypes, setCarChangesTypes] = useState( null );
+  const updateCarChangesTypes = ( instruction = {carStatus: null} ) => {
+    setCarChangesTypes(instruction.carStatus)
+  }
+  
   const [car, setCar] = useState( JSON.parse(localStorage.getItem('car')) || [] );
   const updateCar = ( instruction, item ) => {
     switch ( instruction.actionType ){
@@ -26,48 +40,55 @@ export function CarProvider ( {children} ) {
           const itemVariants = car[findID].variants
           const findVariants = itemVariants.indexOf( itemVariants.find( itemVariant => itemVariant.name === item.variants[0].name ) )
           if( findVariants >= 0 ){
-            car[findID].quantity    =   item.quantity
-            console.log( 'Objeto actualizado');
+            car[findID].quantity    =   item.quantity;
           }else{
             itemVariants.push(
               {
                 name: item.variants[0].name
               }
             )
-            console.log( 'Objeto añadido' );
           }
+          setCarChangesTypes( 'UPDATED_ITEM' );
+          console.log( 'Objeto actualizado');
         }else{
-          updateCar( item );
-          console.log('objeto no encontrado')
+          /*
+          car.push(
+            {
+              name: 'Alejandro',
+              lastName: 'Ruiz'
+            }
+          );
+          */
+          setCar (
+            [
+              item,
+              ...car
+            ]
+          );
+          setCarChangesTypes( 'CREATED_ITEM' );
+          console.log('objeto no encontrado pero creado')
         }
-        /*
-        car.push(
-          {
-            name: 'Alejandro',
-            lastName: 'Ruiz'
-          }
-        );
-        */
-        setCar (
-          [
-            item,
-            ...car
-          ]
-        );
       }
-        break
+        break;
       default: {
         console.log('Action no Set')
       }
+        break;
     }
-    console.log(car)
+    console.log('mapuches')
+    const carString = JSON.stringify(car);
+    localStorage.setItem('car', carString);
   }
 
   return (
-    <carContext.Provider value={car}>
-      <updateCarContext.Provider value={updateCar}>
-        {children}
-      </updateCarContext.Provider>
-    </carContext.Provider>
+    <carChangesTypesContext.Provider value={carChangesTypes}>
+      <updateCarChangesTypesContext.Provider value={updateCarChangesTypes}>
+        <carContext.Provider value={car}>
+          <updateCarContext.Provider value={updateCar}>
+            {children}
+          </updateCarContext.Provider>
+        </carContext.Provider>
+      </updateCarChangesTypesContext.Provider>
+    </carChangesTypesContext.Provider>
   )
 }

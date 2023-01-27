@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { Link, useNavigate, useLocation, useLoaderData, useSearchParams } from 'react-router-dom';
 
 
@@ -39,32 +40,31 @@ const filterPostImages = ( evt, body ) => {
 
 export function FeaturedProducts ( ) {
 
-  // List of elements to find
-  const latest = ['3316106626624603393','3125816805209103922', '56465538453532244'];
-  const { posts } = useLoaderData();
-  const items = posts.items
+  //List of featured items
+  const featuredItems = ['3316106626624603393','3125816805209103922', '56465538453532244'];
+  const { posts }     = useLoaderData();
+  const items         = posts.items
 
   return (
     <>
       <div className='row'>
-        { items ? items.map( (item, index) => (
-            <>
-            { latest.indexOf(item.id) !== -1 ?
-              <Link key={ index } className='col-4' to={ `./product/${item.id}` } style={ { textDecoration: 'none' } } >
-                <div className='card w3-hover-grayscale'>
-                  <div style={{ background: 'linear-gradient(0deg, rgba(231,236,216,1) 0%, rgba(255,255,255,1) 27%)' }}>
-                    <img src={ filterPostImages(item.images, item.content) } alt={ item.title } className='card-img-top' style={ {height: '150px', objectFit: 'contain'} } />
+        { items ? items.map( (item, idx) => (
+            <Fragment key={idx}>
+              { featuredItems.indexOf(item.id) != -1 &&
+                <Link className='col-4' to={ `./products/${item.id}` } style={ { textDecoration: 'none' } } >
+                  <div className='card w3-hover-grayscale'>
+                    <div style={{ background: 'linear-gradient(0deg, rgba(231,236,216,1) 0%, rgba(255,255,255,1) 27%)' }}>
+                      <img src={ filterPostImages(item.images, item.content) } alt={ item.title } className='card-img-top' style={ {height: '150px', objectFit: 'contain'} } />
+                    </div>
+                    <div className='card-body'>
+                      <h5 className='card-title text-end'>{item.title}</h5>
+                    </div>
                   </div>
-                  <div className='card-body'>
-                    <h5 className='card-title text-end'>{item.title}</h5>
-                  </div>
-                </div>
-              </Link>
-            : '' }
-            </>
+                </Link>
+              }
+            </Fragment>
           ) ) :
-          'No hay post'
-        }
+        'No hay post' }
       </div>
     </>
   )
@@ -141,7 +141,7 @@ export function LabelProductsHome ( {labels} ) {
     <>
         <ul className="w3-cell-row w3-cell-middle w3-light-gray">
             { labels ? labels.map( (label, index) => (
-                <li className="w3-cell w3-center w3-padding-small">
+                <li key={index} className="w3-cell w3-center w3-padding-small">
                     <a href={`search?labels=${label.label}`} key={index} className='w3-button w3-white text-uppercase' style={ {textDecoration: 'none'} }>{ label.name }</a>
                 </li>
                 ) ) : <span>No hay etiquetas</span>

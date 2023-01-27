@@ -5,6 +5,7 @@ import { HomeView } from "../views/HomeView";
 import { ProductsView } from "../views/ProductsView";
 import { PaginationView } from "../views/PaginationView";
 import { ProductView } from "../views/ProductView";
+import { CheckoutView } from "../views/CheckoutView";
 import { getHomeProducts, getAllProducts, getPagination, getProduct } from "../context/jsonCalls";
 
 
@@ -29,6 +30,10 @@ export const rutas = createBrowserRouter([
             },{
                 element:    <PaginationView />,
                 path:       'products/search',
+                loader:     getPagination
+            },{
+                element:    <CheckoutView />,
+                path:       'checkout',
                 loader:     getPagination
             }
         ]

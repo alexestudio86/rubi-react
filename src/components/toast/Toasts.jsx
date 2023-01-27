@@ -1,15 +1,23 @@
 import Toast from 'react-bootstrap/Toast';
+import { ToastContainer } from 'react-bootstrap';
+import { useUpdateCarChangesTypesContext } from '../../context/CarProvider';
 
 
-export function Toasts ( {showA} ) {
+export function Toasts ( {show, text, bGround} ) {
+
+    const updateCarChangesTypes = useUpdateCarChangesTypesContext();
+
     return (
-        <Toast show={showA}>
-            <Toast.Header>
-            <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-            <strong className="me-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
-            </Toast.Header>
-            <Toast.Body>Hello, world! This is a toast message.</Toast.Body>
-      </Toast>
+        <div className='position-relative' style={ {minHeight: '100%'} }>
+            <ToastContainer position='bottom-center'>
+                <Toast className={`${bGround}`} onClose={updateCarChangesTypes} show={show} delay={3000} autohide >
+                    <Toast.Header style={ {border: 'none'} } >
+                        <img src={ process.env.PUBLIC_URL + '/favicon.ico'} width='15px' height='auto' className="rounded me-2" alt="Toast Header" />
+                        <strong className="me-auto">{ text.title }</strong>
+                    </Toast.Header>
+                    <Toast.Body className='bg-white text-center'>{ text.body }</Toast.Body>
+                </Toast>
+            </ToastContainer>
+        </div>
     )
 }

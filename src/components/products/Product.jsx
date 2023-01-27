@@ -1,7 +1,8 @@
 import { useLoaderData, useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useCarChangesTypesContext, useUpdateCarContext } from '../../context/CarProvider';
 import { Modals } from '../modal/Modals';
-import { useCarContext, useUpdateCarContext } from '../../context/CarProvider';
+import { Toasts } from '../toast/Toasts';
 
 
 const dummyImage = 'https://blogger.googleusercontent.com/img/a/AVvXsEh7Jx5rNMA2KDw2pXf65nS5ybDjI4Hd8VhHil6KU6oiOZY9KxWzcQK7K49JzIY1OwuT8lIXHHD8-wC-EZb88ceQSt8XHwkeJl-ogDxHtwY9zt7s0OVDlm8MXDanI7h2rl_vl-dCK-kaTy2hG1x6BbfxoEJdGECG1VK8BjBCIqjjAOdzmlKcBGl9ZK1tfg=s640';
@@ -42,6 +43,10 @@ const getLabel = (label) => {
 
 export function ResultProduct ( ) {
 
+    //Recovery car data
+    const carChangesTypes       = useCarChangesTypesContext();
+    const updateCar   =   useUpdateCarContext();
+
     //Get post data data
     const { post } = useLoaderData();
 
@@ -50,9 +55,6 @@ export function ResultProduct ( ) {
     for (let index = 1; index > 0 && index <= 50; index++) {
         optionsForm.push(index)
     };
-
-    //Toggle modal variants
-    const [show, setShow] = useState(false);
 
     //Get QUANTITY
     const [ quantity, setQuantity ] = useState(1);
@@ -72,6 +74,8 @@ export function ResultProduct ( ) {
         }) )
     },[] );
 
+    //Toggle modal variants
+    const [show, setShow] = useState(false);
     //Validate variants and SetParams
     const [params, setParams] = useSearchParams();
     const validateVariant = ( ) => {
@@ -81,12 +85,11 @@ export function ResultProduct ( ) {
                   variantSelected:   false
                 }
             );
-            setShow(!show);
+            setShow(true);
         }
     };
 
-    const car         =   useCarContext();
-    const updateCar   =   useUpdateCarContext();
+
 
     return(
         <>
@@ -111,8 +114,8 @@ export function ResultProduct ( ) {
                 <hr className='w3-border' />
                 <div className='py-1'>
                     <button className='btn bg-warning w-100' type='button' onClick={ () => {
-                        validateVariant();
-                        Object.entries(variantDetails).length != 0 && updateCar( {actionType: 'CHECK_ITEM'},
+                            validateVariant();
+                            Object.entries(variantDetails).length != 0 && updateCar( {actionType: 'CHECK_ITEM'},
                                 {
                                     id:         post.id     || 911,
                                     name:       post.title  || 'Dummy Title',
@@ -125,13 +128,15 @@ export function ResultProduct ( ) {
                                     quantity:   quantity || 1,
                                     picture:    post.images[0] ? post.images[0].url.replace("s1024","s90") : dummyImage
                                 }
-                            )
+                            );
                         }} >
                         <i className='fas fa-cart-plus'/> Añadir al carrito
                     </button>
                 </div>
             </div>
             { params.get('variantSelected') && <Modals show={show} stateChanger={setShow} text={{title: "Rubi Chavez dice:", body: "Seleccione una variante"}} />  }
+            { carChangesTypes === 'CREATED_ITEM' && <Toasts show={true} text={ {title: 'Rubi Chavez dice:', body: 'Elemento Creado'} } bGround={'bg-primary'} />  }
+            { carChangesTypes === 'UPDATED_ITEM' && <Toasts show={true} text={ {title: 'Rubi Chavez dice:', body: 'Elemento Actualizado'} } bGround={'bg-secondary'} />  }
         </>
     )
 }
