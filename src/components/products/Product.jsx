@@ -119,14 +119,14 @@ export function ResultProduct ( ) {
                                 {
                                     id:         post.id     || 911,
                                     name:       post.title  || 'Dummy Title',
+                                    picture:    post.images[0] ? post.images[0].url.replace("s1024","s90") : dummyImage,
                                     variants:   [
                                         {
-                                            name: variantDetails.variantName || 'Dummy Variant Details'
+                                            name:       variantDetails.variantName || 'Dummy Variant Details',
+                                            price:      variantDetails.variantPrice || 300,
+                                            quantity:   quantity || 1
                                         }
-                                    ],
-                                    price:      variantDetails.variantPrice || 300,
-                                    quantity:   quantity || 1,
-                                    picture:    post.images[0] ? post.images[0].url.replace("s1024","s90") : dummyImage
+                                    ]
                                 }
                             );
                         }} >

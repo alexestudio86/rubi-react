@@ -34,40 +34,33 @@ export function CarProvider ( {children} ) {
     switch ( instruction.actionType ){
       case 'CHECK_ITEM': {
         //Find item for id
-        const findID = car.indexOf( car.find( c => c.id === item.id ) );
-        if( findID >= 0 ){
-          //Find variant for name
-          const itemVariants = car[findID].variants
-          const findVariants = itemVariants.indexOf( itemVariants.find( itemVariant => itemVariant.name === item.variants[0].name ) )
-          if( findVariants >= 0 ){
-            car[findID].quantity    =   item.quantity;
-          }else{
-            itemVariants.push(
+        const newCar = car.map( c => {
+          if( c.id === item.id ){
+            const { variants } = c
+            return (
               {
-                name: item.variants[0].name
+                ...c,
+                variants: variants.map( v => {
+                            //Find for name founded with spread operator
+                            if( v.name === item.variants[0].name ){
+                              return (
+                                {
+                                  ...v,
+                                  name:     item.variants[0].name,
+                                  price:    item.variants[0].price,
+                                  quantity: item.variants[0].quantity
+                                }
+                              )
+                            }
+                            return v
+                        } ) 
               }
             )
           }
-          setCarChangesTypes( 'UPDATED_ITEM' );
-          console.log( 'Objeto actualizado');
-        }else{
-          /*
-          car.push(
-            {
-              name: 'Alejandro',
-              lastName: 'Ruiz'
-            }
-          );
-          */
-          setCar (
-            [
-              item,
-              ...car
-            ]
-          );
-          setCarChangesTypes( 'CREATED_ITEM' );
-          console.log('objeto no encontrado pero creado')
-        }
+          return c
+        } )
+        setCar(newCar)
+        setCarChangesTypes( 'CREATED_ITEM' );
       }
         break;
       default: {
@@ -75,7 +68,6 @@ export function CarProvider ( {children} ) {
       }
         break;
     }
-    console.log('mapuches')
     const carString = JSON.stringify(car);
     localStorage.setItem('car', carString);
   }

@@ -1,20 +1,11 @@
-body,
-html {
+body, html {
     margin: 0;
     padding: 0;
     height: 100%;
     width: 100%;
     scroll-behavior: smooth
 }
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-figure,
-ul {
+p, h1, h2, h3, h4, h5, h6, figure, ul {
     margin: 0
 }
 ul {
@@ -70,10 +61,12 @@ figcaption {
 }
 .price:before {
     content:"$ ";
-    font: bold 18px 'Amatic', sans-serif;
+    font: bold 12px 'Amatic', sans-serif;
+    vertical-align: super;
 }
 .price:after{
-    content: " usd";
-    font: bold 18px 'Amatic', sans-serif;
+    content: " 00";
+    font: bold 12px 'Amatic', sans-serif;
     text-transform: uppercase;
+    vertical-align: super;
 }

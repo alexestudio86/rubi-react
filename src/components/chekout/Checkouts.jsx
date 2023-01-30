@@ -1,40 +1,79 @@
-import { useCarContext } from "../../context/CarProvider"
+import { useCarContext, useUpdateCarContext } from "../../context/CarProvider"
+
 
 export function Checkouts ( ) {
 
-    const car = useCarContext()
+    const car       =   useCarContext()
+    const updateCar =   useUpdateCarContext();
+
 
     return (
-        <ul className="list-group">
-            { car && car.map( (c,i) => (
-                    <li key={i} className="ist-group-item bg-white m-0 my-1 p-1">
-                        <div class='row m-0 p-0'>
-                            <div class='col-3 p-0'>
-                                <img class='rounded w-100' v-bind='{alt: c.title, src: c.picture}'/>
+        <div>
+            { car && car.map( (c,idx) => (
+                <div key={idx}>
+                    { c.variants.map( (v,i) => (
+                        <div key={i} className='w3-row bg-light m-1 py-2'>
+                            <div className='w3-col s5 p-0'>
+                                <img className='rounded' width='100px' height='auto' src={c.picture} alt={c.name} style={ {width: '100%', height: '70px', objectFit: 'contain'} } />
                             </div>
-                            <div class='col-9 p-0 text-end'>
-                                <h1 class='fs-4 m-0'>{ c.name }</h1>
-                                <p class='text-secondary m-0'>1 x <span class='price'>{ c.price }</span></p>
-                                <span class='fw-bold price text-success'>{ c.quantity * c.price }</span>
+                            <div className='w3-rest p-0'>
+                                <h1 className='fs-4 m-0'>{ c.name }</h1>
+                                <p className="price fs-4 fw-bold">{ v.price }</p>
+                                <div className="d-flex align-items-center">
+                                    <span className="fs-6 fw-bold">Variante: </span><span className="m-0">{ v.name }</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class='row m-0 p-0'>
-                            <div class='col-4 p-0 d-flex justify-content-center align-items-center'>
-                                <button class='btn' type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" >
-                                    <i class='far fa-trash-alt text-danger fs-2'/>
-                                </button>
-                            </div>
-                            <div class='col-8 p-0'>
-                                <div class='rounded border border-secondary d-flex justify-content-between align-items-center'>
-                                    <button class='btn text-danger fs-3 px-3 py-0' >&#8722;</button>
-                                    <span class='fs-3'>{ c.quantity }</span>
-                                    <button class='btn text-primary fs-3 px-3 py-0' >+</button>
+                            <div className='col-12 p-0'>
+                                <div className='rounded border border-secondary d-flex justify-content-between align-items-center'>
+                                    { v.quantity === 1 ? (
+                                        <button className='btn' type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" >
+                                            <i className='far fa-trash-alt text-danger fs-2'/>
+                                        </button>
+                                        ) : (
+                                            <button className='btn text-danger fs-3 px-3 py-0' onClick={ () => {
+                                                updateCar(
+                                                    {actionType: 'CHECK_ITEM'},
+                                                    {
+                                                        id:         c.id,
+                                                        name:       c.name,
+                                                        picture:    c.picture,
+                                                        variants:   [
+                                                            {
+                                                                name:       v.name,
+                                                                price:      v.price,
+                                                                quantity:   v.quantity-1
+                                                            }
+                                                        ]
+                                                    }
+                                                );
+                                            }} >&#8722;</button>
+                                    ) }
+                                    <span className='fs-3'>{ v.quantity }</span>
+                                    <button className='btn text-primary fs-3 px-3 py-0' onClick={ () => {
+                                        if( v.quantity <= 50 ){
+                                            updateCar(
+                                                {actionType: 'CHECK_ITEM'},
+                                                {
+                                                    id:         c.id,
+                                                    name:       c.name,
+                                                    picture:    c.picture,
+                                                    variants:   [
+                                                        {
+                                                            name:       v.name,
+                                                            price:      v.price,
+                                                            quantity:   v.quantity+1
+                                                        }
+                                                    ]
+                                                }
+                                            );
+                                        }
+                                    }} >+</button>
                                 </div>
                             </div>
                         </div>
-                    </li>
-                ) )
-            }
-        </ul>
+                    ) ) }
+                </div>
+            ) )}
+        </div>
     )
 }
