@@ -82,7 +82,7 @@ export function NavFull( ){
                     <Form className="d-flex">
                         <Form.Control type="search" placeholder="Buscar" className="me-2" aria-label="Search" />
                         <Button variant="outline-success">
-                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <i className="fa-solid fa-magnifying-glass"></i>
                         </Button>
                     </Form>
                 </Navbar.Collapse>

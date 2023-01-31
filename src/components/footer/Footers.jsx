@@ -1,6 +1,6 @@
 export function FooterCompact ( ){
     return (
-        <div className='bg-dark' id='footerFull'>
+        <div className='bg-dark fixed-bottom' id='footerFull'>
             <div className='container py-2'>
                 <div className='row'>
                     <div className='col-md-12 text-center'>By <a href='#' className='link-primary'>Petitpua Buró Creativo</a></div>

@@ -4,6 +4,9 @@ import { LabelProduct } from '../../layout/LabelProduct'
 import { CategoryProduct } from '../../layout/CategoryProduct';
 import { Link } from 'react-router-dom';
 
+const goToUp = ( ) => {
+    window.scrollTo(0,0)
+}
 
 export function StoreHome ( ) {
     return (
@@ -26,7 +29,7 @@ export function StoreHome ( ) {
             </div>
             <div className="w3-cell-row w3-cell-middle w3-light-gray">
                 <div className="w3-cell w3-center w3-padding-small">
-                    <Link to ='products' className="w3-button bg-white text-uppercase">Todos los productos</Link>
+                    <Link to ='products' className="w3-button bg-white text-uppercase" onClick={goToUp}>Todos los productos</Link>
                 </div>
             </div>
         </>

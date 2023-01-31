@@ -3,6 +3,7 @@ import { SearchForm } from '../../layout/SearchForm';
 import { LabelProduct } from '../../layout/LabelProduct';
 import { CategoryProduct } from '../../layout/CategoryProduct';
 import { useSearchParams } from 'react-router-dom'
+import { useEffect } from 'react';
 
 
 export function StorePages ( ) {
