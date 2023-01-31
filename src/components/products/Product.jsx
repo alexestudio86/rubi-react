@@ -1,8 +1,8 @@
-import { useLoaderData, useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useLoaderData, useSearchParams } from 'react-router-dom';
 import { useCarChangesTypesContext, useUpdateCarContext } from '../../context/CarProvider';
-import { Modals } from '../modal/Modals';
-import { Toasts } from '../toast/Toasts';
+import { ModalVariables } from '../modal/Modals';
+import { ToastAdd } from '../toast/Toasts';
 
 
 const dummyImage = 'https://blogger.googleusercontent.com/img/a/AVvXsEh7Jx5rNMA2KDw2pXf65nS5ybDjI4Hd8VhHil6KU6oiOZY9KxWzcQK7K49JzIY1OwuT8lIXHHD8-wC-EZb88ceQSt8XHwkeJl-ogDxHtwY9zt7s0OVDlm8MXDanI7h2rl_vl-dCK-kaTy2hG1x6BbfxoEJdGECG1VK8BjBCIqjjAOdzmlKcBGl9ZK1tfg=s640';
@@ -134,9 +134,10 @@ export function ResultProduct ( ) {
                     </button>
                 </div>
             </div>
-            { params.get('variantSelected') && <Modals show={show} stateChanger={setShow} text={{title: "Rubi Chavez dice:", body: "Seleccione una variante"}} />  }
-            { carChangesTypes === 'CREATED_ITEM' && <Toasts show={true} text={ {title: 'Rubi Chavez dice:', body: 'Elemento Creado'} } bGround={'bg-primary'} />  }
-            { carChangesTypes === 'UPDATED_ITEM' && <Toasts show={true} text={ {title: 'Rubi Chavez dice:', body: 'Elemento Actualizado'} } bGround={'bg-secondary'} />  }
+            { params.get('variantSelected') && <ModalVariables show={show} stateChanger={setShow} text={{title: "Rubi Chavez dice:", body: "Seleccione una variante"}} />  }
+            { carChangesTypes === 'VARIANT_CREATED' && <ToastAdd show={true} text={ {title: 'Rubi Chavez dice:', body: 'Variante Creada'} } bGround={'bg-primary'} />  }
+            { carChangesTypes === 'VARIANT_UPDATED' && <ToastAdd show={true} text={ {title: 'Rubi Chavez dice:', body: 'Variante Actualizado'} } bGround={'bg-secondary'} />  }
+            { carChangesTypes === 'ITEM_CREATED' && <ToastAdd show={true} text={ {title: 'Rubi Chavez dice:', body: 'Item Creado'} } bGround={'bg-secondary'} />  }
         </>
     )
 }

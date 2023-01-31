@@ -172,13 +172,8 @@ export function CategoryProductsHome ( {categories} ){
       <div className='row'>
         { categories ? categories.map( (category, idx) => (
             <div key={idx} className='col-6 col-md-3'>
-              <div className="py-4">
-                <Link to={`#`} className='card w3-display-container w3-hover-black' style={ {textDecoration: 'none'} }>
-                    <img className='w3-opacity w-100' width='320' height='240px' src={category.image} alt={category.name} style={ {width: '100%', height: 'auto', objectFit: 'cover'} } />
-                    <div className="w3-display-middle w-100 py-2">
-                      <figcaption className='text-center fw-bold text-uppercase d-none d-lg-block' >{ category.name }</figcaption>
-                    </div>
-                </Link>
+              <div className="py-1">
+                <Link className='btn btn-outline-primary' to={`#`} style={ {textDecoration: 'none'} }>{ category.name }</Link>
               </div>
             </div>
           ) ) : <span>Sin categorías</span>

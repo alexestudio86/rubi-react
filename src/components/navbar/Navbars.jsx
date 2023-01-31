@@ -1,75 +1,92 @@
+import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { useCarContext } from '../../context/CarProvider'
+import { useCarContext } from '../../context/CarProvider';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+
 
 export function NavCompact(){
-
+    
     const car = useCarContext();
+    const [totalItems, setTotalItems] = useState(0);
+
+    useEffect( () => {
+        car.length > 0 ? setTotalItems(
+                Array.from( car.map( c => {
+                    //console.log( c.variants.map( (v,i) => i != 1 && 1 ) )
+                    return Array.from( c.variants.map( (v,i) => {
+                        if( i !== 1 ){
+                            return 1
+                        }
+                        return i
+                    } ) ).reduce( (x,y) => x+y )
+                } ) ).reduce( (a,b) => a+b )
+            )
+        : setTotalItems(0)
+    },[car])
+
 
     return (
-        <nav className='navbar navbar-dark bg-dark sticky-top'>
-            <div className='container'>
-                <Link className='btn' to='/'>
+        <Navbar bg="dark" variant="dark" sticky="top" id='navCompact'>
+            <Container>
+                <NavLink to='/'>
                     <i className='fas fa-home fa-2x text-white'></i>
-                </Link>
-                <Link className='btn btn-dark d-block d-sm-none' to='/checkout'>
+                </NavLink>
+                <NavLink className='btn btn-dark d-block d-sm-none' to='/checkout' >
                     <i className='fas fa-shopping-cart fa-lg me-1'></i>
                     {/* Car lenght */}
-                    <span className='badge rounded-pill bg-danger'>{ car.length }</span>
-                </Link>
-            </div>
-        </nav>
+                    <span className='badge rounded-pill bg-danger'>{ totalItems }</span>
+                </NavLink>
+            </Container>
+        </Navbar>
     )
 }
 
 
-//Active or inactive class
-const active = 'nav-link text-uppercase active';
-const inactive = 'nav-link text-uppercase';
 
 
 export function NavFull( ){
     
     const car = useCarContext();
+    const [totalItems, setTotalItems] = useState()
+    
+    //Active or inactive class
+    const active = 'nav-link text-uppercase active';
+    const inactive = 'nav-link text-uppercase';
+
 
     return (
-        <nav className='navbar navbar-expand-lg navbar-dark bg-dark sticky-top' id='navfull'>
-            <div className='container'>
+        <Navbar bg="dark" variant="dark" sticky="top" expand="lg" id='navfull'>
+            <Container>
                 <NavLink className='navbar-brand d-none d-sm-block' to='/'>
                     <img src={ require('../../assets/theme/logo_arminda-dark.png') } alt='Logo arminda' height='74' />
                 </NavLink>
-                <button className='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
-                    <i className='navbar-toggler-icon'></i>
-                </button>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <NavLink className='btn btn-dark d-block d-sm-none' to='/checkout' >
                     <i className='fas fa-shopping-cart fa-lg me-1'></i>
                     {/* Car lenght */}
                     <span className='badge rounded-pill bg-danger'>{ car.length }</span>
                 </NavLink>
-                <div className='collapse navbar-collapse' id='navbarSupportedContent'>
-                    <ul className='navbar-nav me-auto mb-2 mb-lg-0'>
-                        <li className='nav-item'>
-                            <NavLink className={ ({isActive}) => isActive ? active : inactive} to='/'>
-                                Home
-                            </NavLink>
-                        </li>
-                        <li className='nav-item'>
-                            <NavLink className='nav-link text-uppercase' to='/services'>
-                                Servicios
-                            </NavLink>
-                        </li>
-                        <li className='nav-item'>
-                            <NavLink className='nav-link text-uppercase' to='/products'>
-                                Productos
-                            </NavLink>
-                        </li>
-                    </ul>
-                    <form className='d-flex' >
-                        <input v-model='searchText' className='form-control me-2' type='search' placeholder='ej. shampoo' aria-label='Search' />
-                        {/* Change router link to button */}
-                        <button className='btn btn-outline-success' type='submit' >Buscar</button>
-                    </form>
-                </div>
-            </div>
-        </nav>
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">
+                        <NavLink className={ ({isActive}) => isActive ? active : inactive} to='/'>Home</NavLink>
+                        <NavLink className='nav-link text-uppercase' to='/services'>Servicios</NavLink>
+                        <NavDropdown title="PRODUCTOS" id="basic-nav-dropdown">
+                            <NavDropdown.Item href="#action/3.1">Producto 1</NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav>
+                    <Form className="d-flex">
+                        <Form.Control type="search" placeholder="Buscar" className="me-2" aria-label="Search" />
+                        <Button variant="outline-success">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </Button>
+                    </Form>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     )
 }

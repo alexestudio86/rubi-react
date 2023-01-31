@@ -1,10 +1,22 @@
-import { useCarContext, useUpdateCarContext } from "../../context/CarProvider"
+import { useCarContext, useUpdateCarContext } from "../../context/CarProvider";
+import { ModalDelete } from '../modal/Modals';
+import { useState } from "react";
+import { useSearchParams } from 'react-router-dom';
+import { useCarChangesTypesContext } from '../../context/CarProvider';
+import { ToastDelete } from "../toast/Toasts";
 
 
 export function Checkouts ( ) {
 
+    //Recovery car data
     const car       =   useCarContext()
     const updateCar =   useUpdateCarContext();
+    const carChangesTypes       = useCarChangesTypesContext();
+
+    //Show Modal
+    const [ deleteItem, setDeleteItem ] = useState(false)
+    //Add oarams
+    const [params, setParams] = useSearchParams();
 
 
     return (
@@ -26,7 +38,10 @@ export function Checkouts ( ) {
                             <div className='col-12 p-0'>
                                 <div className='rounded border border-secondary d-flex justify-content-between align-items-center'>
                                     { v.quantity === 1 ? (
-                                        <button className='btn' type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" >
+                                        <button className="btn text-white" onClick={ () => {
+                                            setParams( {deleteItem:   c.id, deleteVariable:    i} )
+                                            setDeleteItem(true);
+                                        }}>
                                             <i className='far fa-trash-alt text-danger fs-2'/>
                                         </button>
                                         ) : (
@@ -41,14 +56,16 @@ export function Checkouts ( ) {
                                                             {
                                                                 name:       v.name,
                                                                 price:      v.price,
-                                                                quantity:   v.quantity-1
+                                                                quantity:   v.quantity ? v.quantity-1 : 1
                                                             }
                                                         ]
                                                     }
                                                 );
-                                            }} >&#8722;</button>
+                                            }} >
+                                                <i className="fa-solid fa-minus"></i>
+                                            </button>
                                     ) }
-                                    <span className='fs-3'>{ v.quantity }</span>
+                                    <span className='fs-3'>{ v.quantity ? v.quantity : 1 }</span>
                                     <button className='btn text-primary fs-3 px-3 py-0' onClick={ () => {
                                         if( v.quantity <= 50 ){
                                             updateCar(
@@ -61,19 +78,24 @@ export function Checkouts ( ) {
                                                         {
                                                             name:       v.name,
                                                             price:      v.price,
-                                                            quantity:   v.quantity+1
+                                                            quantity:   v.quantity ? v.quantity+1 : 1
                                                         }
                                                     ]
                                                 }
                                             );
                                         }
-                                    }} >+</button>
+                                    }} >
+                                        <i className="fa-solid fa-plus"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     ) ) }
                 </div>
-            ) )}
+            ) ) }
+            { params.get('deleteItem') && <ModalDelete show={deleteItem} showStateChanger={setDeleteItem} text={ {title: 'Rubi Chávez dice:', body: '¿Desea eliminar éste item?'} } />}
+            { carChangesTypes === 'VARIANT_DELETED' && <ToastDelete show={true} text={ {title: 'Rubi Chavez dice:', body: 'Variante eliminada correctamente'} } bGround={'bg-danger'} />  }
+            { carChangesTypes === 'ITEM_DELETED' && <ToastDelete show={true} text={ {title: 'Rubi Chavez dice:', body: 'Elemento eliminado correctamente'} } bGround={'bg-danger'} />  }
         </div>
     )
 }
