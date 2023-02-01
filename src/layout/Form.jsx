@@ -17,14 +17,6 @@ export function Form ( ) {
                 </form>
             </div>
             <hr />
-            <div className="row">
-                <div className="col-auto">
-                    <button className="btn btn primary">atras</button>
-                </div>
-                <div className="col-auto">
-                    <button className="btn btn-secondary">adelante</button>
-                </div>
-            </div>
         </div>
     )
 }

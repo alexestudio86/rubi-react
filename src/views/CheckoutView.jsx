@@ -19,16 +19,23 @@ export function CheckoutView ( ) {
                     <Carousel.Item>
                         <h1 className="bg-light fs-6 container">Carrito de compras</h1>
                         <Checkouts />
+                        { car.length > 0 && <button className='btn btn-primary w-100' onClick={ () => {
+                            setIndex(1)
+                        } }>Siguiente</button> }
                     </Carousel.Item>
                     { car.length > 0 &&
                         <Carousel.Item>
                             <Form />
+                            <div className="d-flex justify-content-between">
+                                <button className="btn btn-primary" onClick={ () => {
+                                    setIndex(0)
+                                }}>atras</button>
+                                <button className="btn btn-secondary">adelante</button>
+                            </div>
                         </Carousel.Item>
                     }
                 </Carousel>
-                { car.length > 0 && <button className='btn btn-primary w-100' onClick={ () => {
-                    setIndex(1)
-                } }>Siguiente</button> }
+
             </div>
         </main>
     )
