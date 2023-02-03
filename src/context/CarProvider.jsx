@@ -5,30 +5,41 @@ const carChangesTypesContext = createContext();
 const updateCarChangesTypesContext = createContext();
 const carContext = createContext();
 const updateCarContext = createContext();
+const guestNameContext = createContext();
+const updateGuestNameContext = createContext();
 
-//Custom Hooks
+//Custom Hook type car update
 export function useCarChangesTypesContext ( ){
   return useContext(carChangesTypesContext)
 }
 export function useUpdateCarChangesTypesContext ( ){
   return useContext(updateCarChangesTypesContext)
 }
+//Custom car elements
 export function useCarContext ( ){
   return useContext(carContext)
 }
 export function useUpdateCarContext ( ){
   return useContext(updateCarContext)
 }
-
+// custom name
+export function useGuestNameContext ( ){
+  return useContext(guestNameContext)
+}
+export function useUpdateGuestNameContext( ){
+  return useContext(updateGuestNameContext)
+}
 
 
 export function CarProvider ( {children} ) {
 
+  //Car changes type
   const [carChangesTypes, setCarChangesTypes] = useState( null );
   const updateCarChangesTypes = ( instruction = {carStatus: null} ) => {
     setCarChangesTypes(instruction.carStatus)
   }
 
+  //Car changes
   const [car, setCar] = useState( JSON.parse(localStorage.getItem('car')) || []  );
   const updateCar = ( instruction, item ) => {
     switch ( instruction.actionType ){
@@ -126,6 +137,12 @@ export function CarProvider ( {children} ) {
     }
   }
 
+  //Guest name
+  const [guestName, setGuestName] = useState('');
+  const updateGuestName = ( name ) => {
+    setGuestName(name)
+  }
+
   useEffect( () => {
     const carString = JSON.stringify(car);
     localStorage.setItem('car', carString);
@@ -136,7 +153,11 @@ export function CarProvider ( {children} ) {
       <updateCarChangesTypesContext.Provider value={updateCarChangesTypes}>
         <carContext.Provider value={car}>
           <updateCarContext.Provider value={updateCar}>
-            {children}
+            <guestNameContext.Provider value={guestName}>
+              <updateGuestNameContext.Provider value={updateGuestName}>
+                {children}
+              </updateGuestNameContext.Provider>
+            </guestNameContext.Provider>
           </updateCarContext.Provider>
         </carContext.Provider>
       </updateCarChangesTypesContext.Provider>

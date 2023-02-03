@@ -1,12 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "../layout/Layout";
 import { NotFoundView } from "../views/NotFoundView";
+import { getHomeProducts, getAllProducts, getPagination, getProduct } from "../context/jsonCalls";
 import { HomeView } from "../views/HomeView";
 import { ProductsView } from "../views/ProductsView";
 import { PaginationView } from "../views/PaginationView";
 import { ProductView } from "../views/ProductView";
 import { CheckoutView } from "../views/CheckoutView";
-import { getHomeProducts, getAllProducts, getPagination, getProduct } from "../context/jsonCalls";
+import { Order } from "../layout/Order";
 
 
 export const rutas = createBrowserRouter([
@@ -35,6 +36,9 @@ export const rutas = createBrowserRouter([
                 element:    <CheckoutView />,
                 path:       'checkout',
                 loader:     getPagination
+            },{
+                element:    <Order />,
+                path:       'order'
             }
         ]
     }
