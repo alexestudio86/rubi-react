@@ -1,47 +1,61 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import Carousel from 'react-bootstrap/Carousel';
-import { Checkouts } from "../components/chekout/Checkouts";
-import { useCarContext } from "../context/CarProvider";
+import { useGuestNameContext } from "../context/CarProvider";
+import { CarFull } from "../layout/CarFull";
 import { Form } from '../layout/Form';
-import { useGuestNameContext } from '../context/CarProvider';
+import { Gratitude } from '../layout/Gratitude';
 
 
 export function CheckoutView ( ) {
 
-    //Recovery car data
-    const car       =   useCarContext();
 
     //State for control carousel
     const [state, setState] = useState({
-        contactForm:    false,
-        index:          0
+        slide:      '',
+        index:      0
     });
-
-    //Use params
-    const [params, setParams] = useSearchParams();
 
     //Use effect
     useEffect( () => {
-        if( state.contactForm ){
-            //Other form to set preview and new value
-            setState(
-                {
-                    ...state,
-                    index: 1
-                }
-            );
-        }else{
-            //Other form to set preview and new value
-            setState(
-                {
-                    ...state,
-                    index: 0
-                }
-            );
+        switch ( state.slide ){
+            case 'car':
+                setState(
+                    {
+                        ...state,
+                        index: 0
+                    }
+                );
+                break;
+            case 'form':
+                setState(
+                    {
+                        ...state,
+                        index: 1
+                    }
+                );
+                break;
+            case 'thanks':
+                setState(
+                    {
+                        ...state,
+                        index: 2
+                    }
+                );
+                break;
+            default:
+                setState(
+                    {
+                        ...state,
+                        index: 0
+                    }
+                );
         }
-    }, [state.contactForm])
+    }, [state.slide])
 
+
+    //Use params
+    const [params, setParams] = useSearchParams();
 
     //Guest Name
     const guestName     = useGuestNameContext();
@@ -65,41 +79,13 @@ export function CheckoutView ( ) {
             <div className='container bg-white py-3'>
                 <Carousel indicators={false} interval={null} controls={false} activeIndex={state.index} >
                     <Carousel.Item>
-                        <h1 className="bg-light fs-6 container">Carrito de compras</h1>
-                        <Checkouts />
-                        { car.length > 0 && <button className='btn btn-secondary w-100' onClick={ () => {
-                            setParams(
-                                {
-                                    contactInfo:    true
-                                }
-                            );
-                            setState(
-                                {
-                                    ...state,
-                                    contactForm: true
-                                }
-                            )
-                        } }>Siguiente</button> }
+                        <CarFull state={state} setState={setState} />
                     </Carousel.Item>
                     <Carousel.Item>
-                        <Form checkName={checkName} msg={msg} />
-                        <div className="d-flex justify-content-between">
-                            <button className="btn btn-secondary" onClick={ () => {
-                                params.delete('contactInfo')
-                                setParams(params);
-                                setState(
-                                    {
-                                        ...state,
-                                        contactForm: false
-                                    }
-                                )
-                            }}>
-                                <i className="fa-solid fa-angle-left"></i>
-                            </button>
-                            <button className="btn btn-primary" onClick={ checkName } >
-                                <i className="fa-solid fa-angles-right"></i>
-                            </button>
-                        </div>
+                        <Form state={state} setState={setState} checkName={checkName} msg={msg} />
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <Gratitude />
                     </Carousel.Item>
                 </Carousel>
             </div>

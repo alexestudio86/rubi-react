@@ -7,7 +7,6 @@ import { ProductsView } from "../views/ProductsView";
 import { PaginationView } from "../views/PaginationView";
 import { ProductView } from "../views/ProductView";
 import { CheckoutView } from "../views/CheckoutView";
-import { Order } from "../layout/Order";
 
 
 export const rutas = createBrowserRouter([
@@ -35,10 +34,6 @@ export const rutas = createBrowserRouter([
             },{
                 element:    <CheckoutView />,
                 path:       'checkout',
-                loader:     getPagination
-            },{
-                element:    <Order />,
-                path:       'order'
             }
         ]
     }

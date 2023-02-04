@@ -6,7 +6,7 @@ import { useCarChangesTypesContext } from '../../context/CarProvider';
 import { ToastDelete } from "../toast/Toasts";
 
 
-export function Checkouts ( ) {
+export function Carfulls ( ) {
 
     //Recovery car data
     const car       =   useCarContext()

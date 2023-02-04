@@ -1,4 +1,4 @@
-export function ThankYouPage ( ){
+export function ThankYou ( ){
     return (
         <>
             <h1>Gracias por su compra</h1>

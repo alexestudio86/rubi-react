@@ -111,11 +111,12 @@ export function CarProvider ( {children} ) {
               if( c.id === item.itemID ){
                 return {
                   ...c,
-                  variants: [c.variants.filter( (v,i) => i !== item.variableID )]
+                  variants: c.variants.filter( (v,i) => i !== item.variableID )
                 }
               }
               return c
             })
+            console.log(car[searchID])
             setCarChangesTypes( 'VARIANT_DELETED' );
             setCar( newCar )
           }else{

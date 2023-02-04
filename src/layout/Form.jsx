@@ -1,33 +1,54 @@
-import { useUpdateGuestNameContext } from '../context/CarProvider'
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { ContactForm } from "../components/form/Forms";
 
 
-export function Form ( { checkName, msg } ) {
+export function Form ( {state, setState, checkName, msg} ) {
 
-    //Guest name
-    const updateGuestName   = useUpdateGuestNameContext();
+    //Use params
+    const [params, setParams] = useSearchParams();
+
+    //Redirect
+    const navigate = useNavigate();
 
     return (
         <div className="container">
             <h1 className="fs-5">Ingresa tu nombre para continuar</h1>
-            <div className="py-1">
-                <form className="row py-3" onSubmit={ (e) => {
-                    e.preventDefault();
-                    checkName()
-                } }>
-                    <div className="col-auto">
-                        <label htmlFor="inputName" className="col-form-label">
-                            <i className="fas fa-user"></i>
-                        </label>
-                    </div>
-                    <div className="col-auto">
-                        <input id="inputName" type="text" className="form-control" placeholder="ej. José María" onChange={ e => updateGuestName( e.target.value ) }  />
-                    </div>
-                </form>
-                <div className="row">
-                { msg.length > 0 && <p className="text-danger text-center0">{msg}</p> }
-                </div>
-            </div>
+            <ContactForm checkName={checkName} msg={msg} />
             <hr />
+            <div className="d-flex justify-content-between">
+                <button className="btn btn-secondary" onClick={ () => {
+                    params.delete('contactInfo')
+                    setParams(params);
+                    setState(
+                        {
+                            ...state,
+                            slide:      'car'
+                        }
+                    )
+                }}>
+                    <i className="fa-solid fa-angle-left"></i>
+                </button>
+                <button className="btn btn-primary" onClick={ () => {
+                    checkName();
+                    if( msg.length > 1 ){
+                        params.delete('contactInfo')
+                        setParams(
+                            {
+                                greetings:  true
+                            }
+                        );
+                        setState(
+                            {
+                                ...state,
+                                slide:      'thanks'
+                            }
+                        )
+                        setTimeout(() => navigate('/'), 5000);
+                    }
+                }} >
+                    <i className="fa-solid fa-angle-right"></i>
+                </button>
+            </div>
         </div>
     )
 }
