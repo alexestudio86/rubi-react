@@ -1,24 +1,26 @@
 import { useUpdateGuestNameContext } from '../../context/CarProvider';
 
 
-export function ContactForm ( {checkName, msg} ) {
+export function ContactForm ( { msg, checkName } ) {
+
     //Guest name
     const updateGuestName   = useUpdateGuestNameContext();
+
 
     return (
 
         <div className="py-1">
-            <form className="row py-3" onSubmit={ (e) => {
+            <form className="w3-row py-3" onSubmit={ (e) => {
                     e.preventDefault();
                     checkName()
                 } }>
-                    <div className="col-auto">
+                    <div className="w3-col-auto">
                         <label htmlFor="inputName" className="col-form-label">
                             <i className="fas fa-user"></i>
                         </label>
                     </div>
                     <div className="col-auto">
-                        <input id="inputName" type="text" className="form-control" placeholder="ej. José María" onChange={ e => updateGuestName( e.target.value ) }  />
+                        <input id="inputName" type="text" className="form-control w-100" placeholder="ej. José María" onChange={ e => updateGuestName( e.target.value ) }  />
                     </div>
             </form>
             <div className="row">

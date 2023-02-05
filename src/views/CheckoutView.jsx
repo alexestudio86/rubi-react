@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import Carousel from 'react-bootstrap/Carousel';
-import { useGuestNameContext } from "../context/CarProvider";
 import { CarFull } from "../layout/CarFull";
 import { Form } from '../layout/Form';
 import { Gratitude } from '../layout/Gratitude';
@@ -53,25 +52,9 @@ export function CheckoutView ( ) {
         }
     }, [state.slide])
 
-
     //Use params
     const [params, setParams] = useSearchParams();
 
-    //Guest Name
-    const guestName     = useGuestNameContext();
-    
-    //Data Message
-    const [msg, setMsg] = useState('')
-    //Check name
-    const navigate = useNavigate()
-    const checkName = ( ) => {
-        if( guestName.length < 3 ){
-            setMsg( 'El nombre es demasiado corto' )
-        }else{
-            setMsg('');
-            navigate('/order')
-        }
-    }
 
 
     return (
@@ -82,10 +65,10 @@ export function CheckoutView ( ) {
                         <CarFull state={state} setState={setState} />
                     </Carousel.Item>
                     <Carousel.Item>
-                        <Form state={state} setState={setState} checkName={checkName} msg={msg} />
+                        <Form state={state} setState={setState} />
                     </Carousel.Item>
                     <Carousel.Item>
-                        <Gratitude />
+                        { state.slide === 'thanks' && <Gratitude /> }
                     </Carousel.Item>
                 </Carousel>
             </div>

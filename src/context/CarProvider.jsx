@@ -43,7 +43,7 @@ export function CarProvider ( {children} ) {
   const [car, setCar] = useState( JSON.parse(localStorage.getItem('car')) || []  );
   const updateCar = ( instruction, item ) => {
     switch ( instruction.actionType ){
-      case 'CHECK_ITEM': {
+      case 'CHECK_ITEM':
         //Compare ID
         const searchID = car.indexOf( car.find( c => c.id === item.id ) );
         if( searchID >= 0 ){
@@ -98,9 +98,8 @@ export function CarProvider ( {children} ) {
           setCarChangesTypes( 'ITEM_CREATED' );
           setCar( [...car, item] )
         }
-      }
         break;
-      case 'DELETE_ITEM': {
+      case 'DELETE_ITEM':
         //Delete one item with variable
         if( item.variableID >= 0 ){
           //Compare ID
@@ -129,12 +128,13 @@ export function CarProvider ( {children} ) {
           setCarChangesTypes( 'ITEM_DELETED' );
           setCar( car.filter( (c) => c.id !== item.itemID ) )
         }
-      }
         break;
-      default: {
+      case 'CLEAR_ALL':
+        setCar([])
+        break;
+      default:
         console.log('Action no Set')
-      }
-        break;
+
     }
   }
 
