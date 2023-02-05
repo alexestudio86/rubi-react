@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ThankYou } from '../components/greetings/ThanYou';
-import { useCarContext, useUpdateCarContext, useGuestNameContext } from "../context/CarProvider";
+import { useCarContext, useUpdateCarContext, useGuestNameContext, useUpdateGuestNameContext } from "../context/CarProvider";
 
 
 export function Gratitude ( ){
@@ -14,6 +14,7 @@ export function Gratitude ( ){
     const updateCar     =   useUpdateCarContext();
     // Recovery guest Name
     const guestName     = useGuestNameContext();
+    const updateGuestName   = useUpdateGuestNameContext();
 
     // Whatsapp number
     const whatsappNumber = '+5214531157233'
@@ -39,6 +40,7 @@ export function Gratitude ( ){
     useEffect(() => {
         const timer = setTimeout(() => {
             updateCar({actionType: 'CLEAR_ALL'},{})
+            updateGuestName('')
             window.location.replace(link)
         }, 5000);
         return () => clearTimeout(timer);
