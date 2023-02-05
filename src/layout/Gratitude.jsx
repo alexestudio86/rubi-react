@@ -16,7 +16,7 @@ export function Gratitude ( ){
     const guestName     = useGuestNameContext();
 
     // Whatsapp number
-    const whatsappNumber = 5543814943
+    const whatsappNumber = '+5214531157233'
     // Saludo
     const introText = encodeURIComponent(`_Hola, me gustaría ordenar_\n`);    
     // Texto
