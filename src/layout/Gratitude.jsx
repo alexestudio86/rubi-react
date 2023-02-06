@@ -37,10 +37,12 @@ export function Gratitude ( ){
     // Link
     const link = `https://wa.me/${whatsappNumber}/?text=${introText}${bodyText}${dineroTotal}${finalText}`
 
+
     useEffect(() => {
         const timer = setTimeout(() => {
             updateCar({actionType: 'CLEAR_ALL'},{})
             updateGuestName('')
+            navigate('/checkout');
             window.location.replace(link)
         }, 5000);
         return () => clearTimeout(timer);
