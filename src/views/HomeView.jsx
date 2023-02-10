@@ -1,5 +1,4 @@
-
-import { Store } from '../layout/Store';
+import { Store } from "../layout/Store"
 
 
 export function HomeView () {

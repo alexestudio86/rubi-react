@@ -1,8 +1,10 @@
-export function PaginationView ( ){
+import { Paginaciones } from "../layout/Paginaciones"
+
+
+export function PaginationView ( ) {
   return (
     <>
-      <h1>Soy la paginacion</h1>
+      <Paginaciones />
     </>
   )
-
 }

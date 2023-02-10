@@ -1,5 +1,4 @@
-import { Outlet } from 'react-router-dom';
-import { useLocation } from "react-router-dom";
+import { useLocation , Outlet } from 'react-router-dom';
 import { Notice } from './Notice';
 import { Navbar } from './Navbar';
 import { Carousel } from './Carousel';
@@ -18,7 +17,9 @@ export function Layout( ){
                 { location.pathname === '/' && <Carousel /> }
             </div>
             <div>
+            <main className="w3-light-gray">
                 <Outlet />
+            </main>
                 { location.pathname === '/' && <Parallax /> }
                 <Footer />
             </div>

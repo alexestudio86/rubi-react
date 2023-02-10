@@ -1,5 +1,10 @@
 import { Fragment } from 'react';
 import { Link, useNavigate, useLocation, useLoaderData, useSearchParams } from 'react-router-dom';
+import { getAllLabels, getAllCategories } from "../../context/jsonCalls";
+
+
+const labels = getAllLabels();
+const categories = getAllCategories();
 
 
 // General function for get to unique label
@@ -136,13 +141,13 @@ export function ResultProducts ( ) {
 }
 
 
-export function LabelProductsHome ( {labels} ) {
+export function LabelProductsHome ( ) {
   return (
     <>
         <ul className="w3-cell-row w3-cell-middle w3-light-gray">
             { labels ? labels.map( (label, index) => (
                 <li key={index} className="w3-cell w3-center w3-padding-small">
-                    <a href={`search?labels=${label.label}`} key={index} className='w3-button w3-white text-uppercase' style={ {textDecoration: 'none'} }>{ label.name }</a>
+                    <Link to={`search?labels=${label.label}`} key={index} className='w3-button w3-white text-uppercase' style={ {textDecoration: 'none'} }>{ label.name }</Link>
                 </li>
                 ) ) : <span>No hay etiquetas</span>
             }
@@ -152,13 +157,13 @@ export function LabelProductsHome ( {labels} ) {
 }
 
 
-export function LabelProductsPages ( {labels} ) {
+export function LabelProductsPages ( ) {
   return (
     <>
       { labels ? labels.map( (label, index) => (
-          <a href={label.label} key={index} className='w3-padding-small' style={ {textDecoration: 'none'} }>
+          <Link to={`/collections/${label.url}`} key={index} className='w3-padding-small' style={ {textDecoration: 'none'} }>
             <span className='w3-light-gray w3-padding-small w3-text-blue'>{ label.name }</span>
-          </a>
+          </Link>
         ) ) : <span>No hay etiquetas</span>
       }
     </>
@@ -166,14 +171,14 @@ export function LabelProductsPages ( {labels} ) {
 }
 
 
-export function CategoryProductsHome ( {categories} ){
+export function CategoryProductsHome ( ){
   return (
     <>
       <div className='row'>
         { categories ? categories.map( (category, idx) => (
             <div key={idx} className='col-6 col-md-3'>
               <div className="py-1">
-                <Link className='btn btn-outline-primary' to={`#`} style={ {textDecoration: 'none'} }>{ category.name }</Link>
+                <Link className='btn btn-outline-primary' to={'.'} style={ {textDecoration: 'none'} }>{ category.name }</Link>
               </div>
             </div>
           ) ) : <span>Sin categorías</span>
@@ -185,13 +190,13 @@ export function CategoryProductsHome ( {categories} ){
 }
 
 
-export function CategoryProductsPages ( {categories} ){
+export function CategoryProductsPages ( ){
   return (
     <>
       <ul className='w3-ul w3-hoverable'>
         { categories ? categories.map( (category, idx) => (
             <li key={idx} className='w3-padding'>
-              <Link to={`#`} className='w3-row' style={ {textDecoration: 'none'} }>
+              <Link to={`/collections/${category.url}`} className='w3-row' style={ {textDecoration: 'none'} }>
                 <div className='w3-col s2'>
                   <img className='w-100' src={category.image} alt={category.name} />
                 </div>

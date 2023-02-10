@@ -1,10 +1,10 @@
-import { NotFounds } from "../components/notFound/NotFounds";
+import { NotFound } from "../layout/NotFound"
 
 
 export function NotFoundView ( ){
     return (
-        <main className='bg-light'>
-            <NotFounds />
-        </main>
+        <>
+            <NotFound />
+        </>
     )
 }
