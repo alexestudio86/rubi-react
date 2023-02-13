@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { getAllLabels } from '../../context/jsonCalls';
 
 
 export function NavCompact(){
@@ -46,9 +47,6 @@ export function NavCompact(){
     )
 }
 
-
-
-
 export function NavFull( ){
     
     const car = useCarContext();
@@ -58,6 +56,7 @@ export function NavFull( ){
     const active = 'nav-link text-uppercase active';
     const inactive = 'nav-link text-uppercase';
 
+    const labels = getAllLabels()
 
     return (
         <Navbar bg="dark" variant="dark" sticky="top" expand="lg" id='navfull'>
@@ -73,10 +72,12 @@ export function NavFull( ){
                 </NavLink>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <NavLink className={ ({isActive}) => isActive ? active : inactive} to='/'>Home</NavLink>
-                        <NavLink className='nav-link text-uppercase' to='/services'>Servicios</NavLink>
+                        <NavLink className='nav-link text-uppercase' to='/'>Home</NavLink>
+                        <NavLink className='nav-link text-uppercase'  to='/services'>Servicios</NavLink>
                         <NavDropdown title="PRODUCTOS" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Producto 1</NavDropdown.Item>
+                            { labels && labels.map( (label, index) => 
+                                <NavLink key={index} className='dropdown-item' to={`/products/search?labels=${label.url}`} >{ label.name }</NavLink>
+                            )}
                         </NavDropdown>
                     </Nav>
                     <Form className="d-flex">

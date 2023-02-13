@@ -5,18 +5,17 @@ import { getAllLabels, getAllCategories } from "../../context/jsonCalls";
 export function NavSecondaryHome ( ){
 
     const labels = getAllLabels();
-    const categories = getAllCategories();
+    const goToUp = ( ) => {
+        window.scrollTo(0,0)
+    }
 
     return (
-        <div id='navSecondary' className="w3-light-gray p-1" style={ {zIndex: '5', overflow: 'auto', whiteSpace: 'nowrap'} }>
+        <div id='navSecondary' className="w3-light-gray w3-padding-small d-flex justify-content-around" >
             { labels ? labels.map( (label, index) => (
-                <Link key={index} to={`search?labels=${label.url}`} className='w3-button w3-border w3-round-xxlarge w3-white' >{ label.name }</Link>
+                <Link key={index} to={`/search?labels=${label.url}`} className='w3-button w3-border w3-round-xxlarge w3-white' >{ label.name }</Link>
                 ) ) : <span>No hay etiquetas</span>
             }
-            { categories ? categories.map( (category, index) => (
-                <Link key={index} to={`collections/${category.url}`} className='w3-button w3-border w3-round-xxlarge w3-white' >{ category.name }</Link>
-                ) ) : <span>No hay categorías</span>
-            }
+            <Link to={'products'} className='w3-button w3-border w3-round-xxlarge w3-blue' onClick={goToUp} >Todos los productos</Link>
         </div>
     )
 }
@@ -41,3 +40,19 @@ export function NavSecondaryPages ( ){
         </div>
     )
 }
+
+
+export function NavTertiaryHome ( ){
+
+    const categories = getAllCategories();
+
+    return (
+        <div id='navTertiary' className='w3-light-gray p-1' style={ {zIndex: '5', overflow: 'auto', whiteSpace: 'nowrap'} }>
+            { categories ? categories.map( (category, index) => (
+                <Link key={index} to={`collections/${category.url}`} className='w3-button w3-border w3-round-xxlarge w3-white' >{ category.name }</Link>
+                ) ) : <span>No hay categorías</span>
+            }
+        </div>
+    )
+}
+

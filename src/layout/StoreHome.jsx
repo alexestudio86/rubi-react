@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ResultProduct } from './ResultProduct';
-import { NavSecondaryHome } from '../components/navSecondary/NavSecondaries';
+import { NavSecondaryHome, NavTertiaryHome } from '../components/navSecondary/NavSecondaries';
 import { FeaturedProduct } from './FeaturedProduct';
 
 const goToUp = ( ) => {
@@ -22,10 +22,8 @@ export function StoreHome ( ) {
                 <h2 className='text-center w3-large w3-padding'>Últimos Productos</h2>
                 <ResultProduct />
             </div>
-            <div className="w3-cell-row w3-cell-middle w3-light-gray">
-                <div className="w3-cell w3-center w3-padding-small">
-                    <Link to ='products' className="w3-button bg-white text-uppercase" onClick={goToUp}>Todos los productos</Link>
-                </div>
+            <div className="w3-paggind-small">
+                <NavTertiaryHome />
             </div>
         </>
     )

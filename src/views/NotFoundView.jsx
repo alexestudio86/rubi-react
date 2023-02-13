@@ -1,4 +1,4 @@
-import { NotFound } from "../layout/NotFound"
+import { NotFound } from "../layout/NotFound";
 
 
 export function NotFoundView ( ){

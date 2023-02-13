@@ -19,7 +19,7 @@ export function Gratitude ( ){
     // Whatsapp number
     const whatsappNumber = '+5214531157233'
     // Saludo
-    const introText = encodeURIComponent(`_Hola, me gustaría ordenar_\n`);    
+    const introText = encodeURIComponent(`_Hola, me gustaría ordenar_\n\n`);    
     // Texto
     const bodyText = car.map( c => (
         c.variants.map( v => (
@@ -51,7 +51,7 @@ export function Gratitude ( ){
     return (
         <>
             <ThankYou />
-            <a href={link}>link</a>
+            <a href={link}>{link}</a>
         </>
     )
 }

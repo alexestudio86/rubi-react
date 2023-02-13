@@ -15,7 +15,7 @@ export function Carfulls ( ) {
 
     //Show Modal
     const [ deleteItem, setDeleteItem ] = useState(false)
-    //Add oarams
+    //Add params
     const [params, setParams] = useSearchParams();
 
 

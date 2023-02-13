@@ -1,10 +1,10 @@
-import { Paginaciones } from "../layout/Paginaciones"
+import { Store } from "../layout/Store"
 
 
 export function PaginationView ( ) {
   return (
     <>
-      <Paginaciones />
+      <Store />
     </>
   )
 }

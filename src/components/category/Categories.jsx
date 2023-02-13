@@ -1,7 +1,7 @@
 import { Store } from "../../layout/Store";
 
 
-export function Collections ( ) {
+export function Categories ( ) {
     return (
         <>
             <Store />
