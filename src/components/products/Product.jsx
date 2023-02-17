@@ -114,22 +114,22 @@ export function ResultProduct ( ) {
                 <hr className='w3-border' />
                 <div className='py-1'>
                     <button className='btn bg-warning w-100' type='button' onClick={ () => {
-                            validateVariant();
-                            Object.entries(variantDetails).length != 0 && updateCar( {actionType: 'CHECK_ITEM'},
-                                {
-                                    id:         post.id     || 911,
-                                    name:       post.title  || 'Dummy Title',
-                                    picture:    post.images[0] ? post.images[0].url.replace("s1024","s90") : dummyImage,
-                                    variants:   [
-                                        {
-                                            name:       variantDetails.variantName || 'Dummy Variant Details',
-                                            price:      variantDetails.variantPrice || 300,
-                                            quantity:   quantity || 1
-                                        }
-                                    ]
-                                }
-                            );
-                        }} >
+                        validateVariant();
+                        Object.entries(variantDetails).length != 0 && updateCar( {actionType: 'CHECK_ITEM'},
+                            {
+                                id:         post.id     || 911,
+                                name:       post.title  || 'Dummy Title',
+                                picture:    post.images[0] ? post.images[0].url.replace("s1024","s90") : dummyImage,
+                                variants:   [
+                                    {
+                                        name:       variantDetails.variantName || 'Dummy Variant Details',
+                                        price:      variantDetails.variantPrice || 300,
+                                        quantity:   quantity || 1
+                                    }
+                                ]
+                            }
+                        );
+                    }} >
                         <i className='fas fa-cart-plus'/> Añadir al carrito
                     </button>
                 </div>

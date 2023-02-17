@@ -1,13 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
+import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 import { useCarContext } from '../../context/CarProvider';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import { getAllLabels } from '../../context/jsonCalls';
+import { SearchForm } from '../search/SearchForms';
 
 
 export function NavCompact(){
@@ -32,18 +28,24 @@ export function NavCompact(){
 
 
     return (
-        <Navbar bg="dark" variant="dark" sticky="top" id='navCompact'>
+        <div className='bg-dark'>
             <Container>
-                <NavLink to='/'>
-                    <i className='fas fa-home fa-2x text-white'></i>
-                </NavLink>
-                <NavLink className='btn btn-dark d-block d-sm-none' to='/checkout' >
-                    <i className='fas fa-shopping-cart fa-lg me-1'></i>
-                    {/* Car lenght */}
-                    <span className='badge rounded-pill bg-danger'>{ totalItems }</span>
-                </NavLink>
+                <ul id='navCompact' className="nav nav-pills justify-content-between" sticky="top">
+                    <li className="nav-item">
+                        <Link className='btn btn-dark' to='/'>
+                            <i className='fas fa-home fa-lg'></i>
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className='btn btn-dark d-block d-sm-none' to='/checkout' >
+                            <i className='fas fa-shopping-cart me-1 fa-lg'></i>
+                            {/* Car lenght */}
+                            <span className='badge rounded-pill bg-danger'>{ totalItems }</span>
+                        </Link>
+                    </li>
+                </ul>
             </Container>
-        </Navbar>
+        </div>
     )
 }
 
@@ -80,12 +82,7 @@ export function NavFull( ){
                             )}
                         </NavDropdown>
                     </Nav>
-                    <Form className="d-flex">
-                        <Form.Control type="search" placeholder="Buscar" className="me-2" aria-label="Search" />
-                        <Button variant="outline-success">
-                            <i className="fa-solid fa-magnifying-glass"></i>
-                        </Button>
-                    </Form>
+                    <SearchForm />
                 </Navbar.Collapse>
             </Container>
         </Navbar>

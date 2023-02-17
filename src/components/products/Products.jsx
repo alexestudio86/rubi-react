@@ -100,7 +100,7 @@ export function ResultProducts ( ) {
   return (
     <div className='row'>
       { items ? items.map( ( item, index ) => (
-        <article key={index} className='col-6 col-md-4 p-2' >
+        <article key={index} className='col-md-4 p-2' >
           <Link to={ `/products/${item.id}` } style={ {textDecoration: 'none'} } >
             <div className='card w3-hover-shadow'>
               <div className='w3-light-gray' >

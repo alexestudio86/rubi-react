@@ -18,10 +18,10 @@ export function StoreHome ( ) {
                 <h2 className='text-center w3-large w3-padding'>Productos Destacados</h2>
                 <FeaturedProduct />
             </div>
-            <div className='w3-padding-small'>
+            <main className='w3-padding-small'>
                 <h2 className='text-center w3-large w3-padding'>Últimos Productos</h2>
                 <ResultProduct />
-            </div>
+            </main>
             <div className="w3-paggind-small">
                 <NavTertiaryHome />
             </div>

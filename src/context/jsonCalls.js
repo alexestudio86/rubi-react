@@ -1,4 +1,3 @@
-import { useSearchParams } from 'react-router-dom';
 import { blogID, apiKey } from '../config/config';
 
 
@@ -14,13 +13,28 @@ export async function getAllProducts ( ) {
   return { posts: posts }
 }
 
-export async function getProductsByPagination ( {request} ) {
+export async function getProductsBySearch ( {request} ) {
   const url = new URL(request.url);
-  const searchTerms = url.searchParams.get('labels');
-  const res   = await fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogID}/posts?labels=${searchTerms}&key=${apiKey}&fetchImages=true`);
-  console.log( res )
+  const searchLabel = url.searchParams.get('labels');
+  const searchTerm  = url.searchParams.get('q');
+  const res = await fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogID}/posts${ searchLabel ? '?labels='+searchLabel : '/search?q='+searchTerm }&key=${apiKey}&fetchImages=true`);
   const posts = await res.json();
-  return { posts: posts }
+  const orderElements = url.searchParams.get('order');
+  if ( orderElements === 'ascendant' ){
+    const orderedItems = {
+      ...posts,
+      items: posts.items.sort( function(a, b){ return a.title - b.title } )
+    }
+    return { posts: orderedItems }
+  }else if( orderElements === 'descendant' ){
+    const orderedItems = {
+      ...posts,
+      items: posts.items.sort( function(a, b){ return b.title - a.title } )
+    }
+    return { posts: posts }
+  }else{
+    return { posts: posts }
+  }
 }
 
 export async function getProductsByLabel ( { params } ) {
@@ -30,11 +44,30 @@ export async function getProductsByLabel ( { params } ) {
   return { posts: posts }
 }
 
-export async function getProductsByCategory ( { params } ) {
+export async function getProductsByCategory ( { params, request } ) {
+
+  //Get order params
+  const url = new URL(request.url);
+  const orderElements = url.searchParams.get('order');
+
   // Para varias consultas multiple label: const res = await fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogID}/posts/search?labels=Multifuncional+Mascarillas&key=${apiKey}pageToken=CgkIChjgz8WE0i8Qoba7_uqq_oxo&fetchImages=true`);
   const res   = await fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogID}/posts?labels=${params.categoryId}&key=${apiKey}&fetchImages=true`);
   const posts = await res.json();
-  return { posts: posts }
+  if ( orderElements === 'ascendant' ){
+    const orderedItems = {
+      ...posts,
+      items: posts.items.sort( function(a, b){ return a.title - b.title } )
+    }
+    return { posts: orderedItems }
+  }else if( orderElements === 'descendant' ){
+    const orderedItems = {
+      ...posts,
+      items: posts.items.sort( function(a, b){ return b.title - a.title } )
+    }
+    return { posts: posts }
+  }else{
+    return { posts: posts }
+  }
 }
 
 export async function getProductsByCollection ( { params } ) {
@@ -54,7 +87,6 @@ export async function getProductsByCollection ( { params } ) {
       ...posts,
       items:  posts.items.filter( post => featuredItemsId.some(featuredItemId => featuredItemId === post.id) )
     }
-    console.log( newPost )
     return { posts: newPost }
   }else{
     return { posts: [] }
@@ -72,9 +104,6 @@ export function getAllLabels ( ) {
       {
         name:  'Línea Capilar',
         url:    `${encodeURIComponent('0 Línea capilar')}`
-      },{
-        name:  'Línea Cosmética',
-        url:    `${encodeURIComponent('0 Línea cosmética')}`
       }
     ]
 }
@@ -87,14 +116,6 @@ export function getAllCategories ( ) {
       image:  require('../assets/categoryProducts/category-01.jpg'),
       url:    `${encodeURIComponent('Crema para peinar')}`
     },{
-      name:   'Jabones',
-      image:  require('../assets/categoryProducts/category-02.jpg'),
-      url:    `${encodeURIComponent('Jabones')}`
-    },{
-      name:   'Kids',
-      image:  require('../assets/categoryProducts/category-03.jpg'),
-      url:    `${encodeURIComponent('Kids')}`
-    },{
       name:   'Línea cosmética',
       image:  require('../assets/categoryProducts/category-04.jpg'),
       url:    `${encodeURIComponent('Línea cosmética')}`
@@ -103,29 +124,21 @@ export function getAllCategories ( ) {
       image:  require('../assets/categoryProducts/category-01.jpg'),
       url:    `${encodeURIComponent('Liquidos')}`
     },{
-      name:   'Mascarilla matizante',
+      name:   'Permanentes',
       image:  require('../assets/categoryProducts/category-01.jpg'),
-      url:    `${encodeURIComponent('Mascarilla matizante')}`
+      url:    `${encodeURIComponent('Permanentes')}`
+    },{
+      name:   'Jabones',
+      image:  require('../assets/categoryProducts/category-01.jpg'),
+      url:    `${encodeURIComponent('Jabones')}`
     },{
       name:   'Mascarillas',
       image:  require('../assets/categoryProducts/category-01.jpg'),
       url:    `${encodeURIComponent('Mascarillas')}`
     },{
-      name:   'Multifuncional',
+      name:   'Kids',
       image:  require('../assets/categoryProducts/category-01.jpg'),
-      url:    `${encodeURIComponent('Multifuncional')}`
-    },{
-      name:   'Permanentes',
-      image:  require('../assets/categoryProducts/category-01.jpg'),
-      url:    `${encodeURIComponent('Permanentes')}`
-    },{
-      name:   'Piojos',
-      image:  require('../assets/categoryProducts/category-01.jpg'),
-      url:    `${encodeURIComponent('Piojos')}`
-    },{
-      name:   'Shampoo',
-      image:  require('../assets/categoryProducts/category-01.jpg'),
-      url:    `${encodeURIComponent('Shampoo')}`
+      url:    `${encodeURIComponent('Kids')}`
     }
   ]
 }

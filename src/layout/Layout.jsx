@@ -17,9 +17,9 @@ export function Layout( ){
                 { location.pathname === '/' && <Carousel /> }
             </div>
             <div>
-            <main className="w3-light-gray">
+            <div className="w3-light-gray">
                 <Outlet />
-            </main>
+            </div>
                 { location.pathname === '/' && <Parallax /> }
                 <Footer />
             </div>

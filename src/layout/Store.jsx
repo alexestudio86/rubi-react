@@ -8,7 +8,7 @@ export function Store ( ) {
     const location = useLocation( );
 
     return (
-        <main className="w3-light-gray">
+        <>
             { location.pathname === '/' ?
                 <>
                     <div id='navSecondary' className='nav nav-tabs bg-secondary justify-content-center py-1 sticky-top' style={ {zIndex: '5'} }>
@@ -21,12 +21,8 @@ export function Store ( ) {
                     </div>
                 </>
             :
-                <div className="px-3">
-                    <div className="py-3 bg-white">
-                        <StorePages />
-                    </div>
-                </div>
+                <StorePages />
             }
-        </main>
+        </>
     )
 }

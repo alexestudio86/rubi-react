@@ -12,24 +12,28 @@ const updateGuestNameContext = createContext();
 export function useCarChangesTypesContext ( ){
   return useContext(carChangesTypesContext)
 }
+
 export function useUpdateCarChangesTypesContext ( ){
   return useContext(updateCarChangesTypesContext)
 }
+
 //Custom car elements
 export function useCarContext ( ){
   return useContext(carContext)
 }
+
 export function useUpdateCarContext ( ){
   return useContext(updateCarContext)
 }
+
 // custom name
 export function useGuestNameContext ( ){
   return useContext(guestNameContext)
 }
+
 export function useUpdateGuestNameContext( ){
   return useContext(updateGuestNameContext)
 }
-
 
 export function CarProvider ( {children} ) {
 
