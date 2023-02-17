@@ -8,7 +8,7 @@ export function NotFound ( ) {
 
     return (
         <>
-            { console.log(error) }
+            { console.error( `Error al cargar el sitio: ${error} `) }
             <NotFounds />
         </>
     )

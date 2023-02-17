@@ -56,7 +56,7 @@ export function NavTertiaryHome ( ){
     const categories = getAllCategories();
 
     return (
-        <div id='navTertiary' className='w3-light-gray p-1' style={ {zIndex: '5', overflow: 'auto', whiteSpace: 'nowrap'} }>
+        <div id='navTertiary' className='w3-light-gray text-center p-1' style={ {zIndex: '5', overflow: 'auto', whiteSpace: 'nowrap'} }>
             { categories ? categories.map( (category, index) => (
                 <Link key={index} to={`categories/${category.url}`} className='w3-button w3-border w3-round-xxlarge w3-white' onClick={goToUp} >{ category.name }</Link>
                 ) ) : <span>No hay categorías</span>

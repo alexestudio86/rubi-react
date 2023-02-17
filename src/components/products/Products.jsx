@@ -58,8 +58,8 @@ export function FeaturedProducts ( ) {
       { items ? items.map( (item, idx) => (
         <Fragment key={idx}>
           { featuredItems.indexOf(item.id) != -1 &&
-            <Link className='col-4' to={ `./products/${item.id}` } style={ { textDecoration: 'none' } } >
-              <div className='card w3-hover-grayscale'>
+            <Link className='col-6 col-md-4 p-0' to={ `./products/${item.id}` } style={ { textDecoration: 'none' } } >
+              <div className='card w3-hover-grayscale p-1'>
                 <div style={{ background: 'linear-gradient(0deg, rgba(231,236,216,1) 0%, rgba(255,255,255,1) 27%)' }}>
                   <img src={ filterPostImages(item.images, item.content) } alt={ item.title } className='card-img-top' style={ {height: '150px', objectFit: 'contain'} } />
                 </div>
@@ -100,9 +100,9 @@ export function ResultProducts ( ) {
   return (
     <div className='row'>
       { items ? items.map( ( item, index ) => (
-        <article key={index} className='col-md-4 p-2' >
+        <article key={index} className='col-6 col-md-4 p-0' >
           <Link to={ `/products/${item.id}` } style={ {textDecoration: 'none'} } >
-            <div className='card w3-hover-shadow'>
+            <div className='card w3-hover-shadow p-1'>
               <div className='w3-light-gray' >
                 <img className='w-100 rounded-circle' style={{ height: '150px', objectFit: 'contain'}} alt={item.title} src={ filterPostImages(item.images, item.content) } />
               </div>
@@ -174,50 +174,47 @@ export function CollectionProductsHome ( ){
 
 export function LabelProductsPages ( ) {
   return (
-    <>
-      { labels ? labels.map( (label, index) => (
-          <Link to={`/products/search?labels=${label.url}`} key={index} className='w3-padding-small' style={ {textDecoration: 'none'} }>
-            <span className='w3-light-gray w3-padding-small w3-text-blue'>{ label.name }</span>
-          </Link>
-        ) ) : <span>No hay etiquetas</span>
-      }
-    </>
+    <div className='breadcrumb'>
+      <ol className='breadcrumb'>
+        { labels ? labels.map( (label, index) => (
+            <li key={index} className='breadcrumb-item' >
+              <Link to={`/products/search?labels=${label.url}`} >{ label.name }</Link>
+            </li>
+          ) ) : <span>No hay etiquetas</span>
+        }
+      </ol>
+    </div>
   )
 }
 
 export function CategoryProductsPages ( ){
   return (
-    <ul className='w3-ul w3-hoverable'>
+    <>
+      <div>
+        <Link to={'/categories'} >Categorías</Link>
+      </div>
       { categories ? categories.map( (category, idx) => (
-          <li key={idx} className='w3-padding'>
-            <Link to={`/categories/${category.url}`} className='w3-row' style={ {textDecoration: 'none'} }>
-              <div className='w3-col s2'>
-                <img className='w-100' src={category.image} alt={category.name} />
-              </div>
-              <div className="w3-rest w3-padding">
-                <h2 className='w3-medium' >{ category.name }</h2>
-              </div>
-            </Link>
-          </li>
-        ) ) : <span>Sin categorías</span>
+          <Link to={`/categories/${category.url}`} key={idx} >
+            <span className='badge bg-secondary'>
+              { category.name }
+            </span>
+          </Link>
+        )) : <span>Sin categorías</span>
       }
-    </ul>
+    </>
   )
 }
 
 export function CollectionProductsPages ( ){
   return (
-    <ul className='w3-ul w3-hoverable'>
+    <>
+      <div>
+        <Link to={'/collections'} >Colecciones</Link>
+      </div>
       { collections ? collections.map( (collection, idx) => (
-          <li key={idx} className='w3-padding'>
-            <Link to={`/collections/${collection.url}`} className='w3-row' style={ {textDecoration: 'none'} }>
-              <div className="w3-padding">
-                <h2 className='w3-medium' >{ collection.name }</h2>
-              </div>
-            </Link>
-          </li>
-        ) ) : <span>Sin colecciones</span>
+          <Link to={`/collections/${collection.url}`} className='btn btn-outline-primary btn-sm m-1' style={ {textDecoration: 'none'} }>{ collection.name }</Link>
+        )) : <span>Sin colecciones</span>
       }
-    </ul>
+    </>
   )
 }
