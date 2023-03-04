@@ -88,7 +88,6 @@ export function ResultProducts ( ) {
   const [params, setParams] = useSearchParams()
 
   const handleNext = () => {
-    console.log(location)
     navigate(
       {
         pathname: 'search',
@@ -212,7 +211,7 @@ export function CollectionProductsPages ( ){
         <Link to={'/collections'} >Colecciones</Link>
       </div>
       { collections ? collections.map( (collection, idx) => (
-          <Link to={`/collections/${collection.url}`} className='btn btn-outline-primary btn-sm m-1' style={ {textDecoration: 'none'} }>{ collection.name }</Link>
+          <Link key={idx} to={`/collections/${collection.url}`} className='btn btn-outline-primary btn-sm m-1' style={ {textDecoration: 'none'} }>{ collection.name }</Link>
         )) : <span>Sin colecciones</span>
       }
     </>

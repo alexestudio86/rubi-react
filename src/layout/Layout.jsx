@@ -13,7 +13,13 @@ export function Layout( ){
     const navigation = useNavigation();
 
     return(
-        <>  { navigation.state === "loading" ? <span>Cargando...{console.log(location)}</span> :
+        <>  { navigation.state === "loading" ?
+            <div className='vh-100 bg-light d-flex justify-content-center align-items-center'>
+                <div className="spinner-border" role="status">
+                    <span className="visually-hidden">Cargando...</span>
+                </div>
+            </div>
+        :
             <>
             <div>
                 { location.pathname === '/' && <Notice />  }

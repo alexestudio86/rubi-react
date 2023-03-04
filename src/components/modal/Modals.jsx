@@ -13,11 +13,11 @@ export function ModalVariables ( {show, stateChanger, text} ){
     }
 
     return (
-        <Modal show={show} backdrop='static' centered onHide={ () => {
-                    stateChanger();
-                    deleteParams();
-                }
-            }>
+        <Modal id='modal' show={show} backdrop='static' centered onHide={ () => {
+                stateChanger();
+                deleteParams();
+            }
+        }>
             <Modal.Header closeButton>
                 <Modal.Title>{text.title}</Modal.Title>
             </Modal.Header>

@@ -14,7 +14,7 @@ export function StorePages ( ) {
     const [searchParams, setSearchParams] = useSearchParams();
     function renderSwitch( ){
         if( window.location.href.indexOf("search") !== -1 ){
-            return `${searchParams.get('labels')}`
+            return `${ searchParams.get('labels') || searchParams.get('q') }`
         }else if( window.location.href.indexOf("categories") !== -1 ){
             return `${paramas.categoryId}`
         }else if( window.location.href.indexOf("collection") !== -1 ){
@@ -54,7 +54,7 @@ export function StorePages ( ) {
                                         <Button variant='outline-secondary btn-light' type="button" onClick={ () => {
                                             setSidebarState(!sidebarState);
                                         }} >
-                                            <i class="fa-solid fa-xmark"></i>
+                                            <i className="fa-solid fa-xmark"></i>
                                         </Button>
                                     </li>
                                 </ul>

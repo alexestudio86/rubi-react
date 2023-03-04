@@ -12,24 +12,28 @@ export function Gratitude ( ){
     // Recovery car data
     const car           =   useCarContext();
     const updateCar     =   useUpdateCarContext();
+
     // Recovery guest Name
     const guestName     = useGuestNameContext();
     const updateGuestName   = useUpdateGuestNameContext();
 
     // Whatsapp number
     const whatsappNumber = '+5214531157233'
+
     // Saludo
-    const introText = encodeURIComponent(`_Hola, me gustaría ordenar_\n\n`);    
+    const introText = encodeURIComponent(`_Hola, me gustaría ordenar_\n\n`);
+
     // Texto
     const bodyText = car.map( c => (
         c.variants.map( v => (
             encodeURIComponent(`${v.quantity} x ${c.name} | ${v.name} - $${v.quantity*v.price}\n`)
         ) )
     ) ).join('');
+
     // Cantidad
     const dinero = car.map( c => (
         c.variants.reduce( (sum, variant) => (typeof variant.quantity === 'number' ? sum + (variant.quantity*variant.price) : sum), 0 )
-    ) )
+    ) ).reduce( (accumulator, currentValue) => (accumulator + currentValue) )
     // Divisiòn
     const dineroTotal = encodeURIComponent(`____________________\nTotal: ${dinero}\n`)
     // Final message
@@ -52,6 +56,7 @@ export function Gratitude ( ){
         <>
             <ThankYou />
             <a href={link}>{link}</a>
+            { console.log(dinero) }
         </>
     )
 }

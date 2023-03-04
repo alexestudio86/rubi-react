@@ -14,7 +14,6 @@ export function NavCompact(){
     useEffect( () => {
         car.length > 0 ? setTotalItems(
                 Array.from( car.map( c => {
-                    //console.log( c.variants.map( (v,i) => i != 1 && 1 ) )
                     return Array.from( c.variants.map( (v,i) => {
                         if( i !== 1 ){
                             return 1

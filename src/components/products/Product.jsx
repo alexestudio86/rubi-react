@@ -58,12 +58,16 @@ export function ResultProduct ( ) {
 
     //Get QUANTITY
     const [ quantity, setQuantity ] = useState(1);
+    
+    //Toggle modal variants
+    const [ show, setShow ] = useState(true);
 
     //Get VARIANTS and set events to variants buttons
     const [ variantDetails, setVariantDetails ] = useState({});
     useEffect( ( ) => {
         const allVariants = document.querySelectorAll('form.form-switch input')
         Array.from(allVariants).map( (variant, index) => variant.addEventListener('click', ( ) => {
+            setShow(false);
             variant.setAttribute('key', index);
             setVariantDetails(
                 {
@@ -74,18 +78,15 @@ export function ResultProduct ( ) {
         }) )
     },[] );
 
-    //Toggle modal variants
-    const [show, setShow] = useState(false);
     //Validate variants and SetParams
     const [params, setParams] = useSearchParams();
     const validateVariant = ( ) => {
-        if( Object.entries(variantDetails).length == 0 ){
+        if( Object.entries(variantDetails).length === 0 ){
             setParams(
                 {
                   variantSelected:   false
                 }
             );
-            setShow(true);
         }
     };
 
@@ -115,7 +116,7 @@ export function ResultProduct ( ) {
                 <div className='py-1'>
                     <button className='btn bg-warning w-100' type='button' onClick={ () => {
                         validateVariant();
-                        Object.entries(variantDetails).length != 0 && updateCar( {actionType: 'CHECK_ITEM'},
+                        Object.entries(variantDetails).length !== 0 && updateCar( {actionType: 'CHECK_ITEM'},
                             {
                                 id:         post.id     || 911,
                                 name:       post.title  || 'Dummy Title',
