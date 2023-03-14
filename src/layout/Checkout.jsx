@@ -65,7 +65,7 @@ export function Checkout ( ) {
                         <Form state={state} setState={setState} />
                     </Carousel.Item>
                     <Carousel.Item>
-                        { state.slide === 'thanks' && <Gratitude /> }
+                        { state.slide === 'thanks' && <Gratitude state={state} setState={setState} /> }
                     </Carousel.Item>
             </Carousel>
         </>

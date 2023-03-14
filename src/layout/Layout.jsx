@@ -13,28 +13,19 @@ export function Layout( ){
     const navigation = useNavigation();
 
     return(
-        <>  { navigation.state === "loading" ?
-            <div className='vh-100 bg-light d-flex justify-content-center align-items-center'>
-                <div className="spinner-border" role="status">
-                    <span className="visually-hidden">Cargando...</span>
-                </div>
-            </div>
-        :
-            <>
+        <>
             <div>
                 { location.pathname === '/' && <Notice />  }
-                <Navbar />
+                    <Navbar />
                 { location.pathname === '/' && <Carousel /> }
             </div>
             <div>
-            <div className="w3-light-gray">
-                <Outlet />
-            </div>
+                <div className="w3-light-gray">
+                    <Outlet />
+                </div>
                 { location.pathname === '/' && <Parallax /> }
                 <Footer />
             </div>
-            </>
-            }
         </>
     )
 }

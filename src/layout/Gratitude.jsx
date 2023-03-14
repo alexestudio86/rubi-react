@@ -4,7 +4,7 @@ import { ThankYou } from '../components/greetings/ThanYou';
 import { useCarContext, useUpdateCarContext, useGuestNameContext, useUpdateGuestNameContext } from "../context/CarProvider";
 
 
-export function Gratitude ( ){
+export function Gratitude ( {state, setState} ){
 
     // Redirect
     const navigate = useNavigate()
@@ -24,30 +24,37 @@ export function Gratitude ( ){
     const introText = encodeURIComponent(`_Hola, me gustaría ordenar_\n\n`);
 
     // Texto
-    const bodyText = car.map( c => (
-        c.variants.map( v => (
-            encodeURIComponent(`${v.quantity} x ${c.name} | ${v.name} - $${v.quantity*v.price}\n`)
-        ) )
-    ) ).join('');
+    const bodyText = car.lenght > 0 ?
+        car.map( c => (
+            c.variants.map( v => (
+                encodeURIComponent(`${v.quantity} x ${c.name} | ${v.name} - $${v.quantity*v.price}\n`)
+            ) )
+        ) ).join('')
+        : '';
 
     // Cantidad
-    const dinero = car.map( c => (
-        c.variants.reduce( (sum, variant) => (typeof variant.quantity === 'number' ? sum + (variant.quantity*variant.price) : sum), 0 )
-    ) ).reduce( (accumulator, currentValue) => (accumulator + currentValue) )
+    const dinero = car.lenght > 0 ?
+        car.map( c => (
+            c.variants.reduce( (sum, variant) => (typeof variant.quantity === 'number' ? sum + (variant.quantity*variant.price) : sum), 0 )
+        ) ).reduce( (accumulator, currentValue) => (accumulator + currentValue) )
+        : 0;
+
     // Divisiòn
     const dineroTotal = encodeURIComponent(`____________________\nTotal: ${dinero}\n`)
+
     // Final message
     const finalText = encodeURIComponent(`\nA nombre de: *${guestName}*`);
+
     // Link
     const link = `https://wa.me/${whatsappNumber}/?text=${introText}${bodyText}${dineroTotal}${finalText}`
 
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            updateCar({actionType: 'CLEAR_ALL'},{})
             updateGuestName('')
-            navigate('/checkout');
+            updateCar({actionType: 'CLEAR_ALL'},{})
             window.location.replace(link)
+            setState( state => ({ ...state, slide:'car' }) )
         }, 5000);
         return () => clearTimeout(timer);
     }, []);
@@ -55,8 +62,9 @@ export function Gratitude ( ){
     return (
         <>
             <ThankYou />
-            <a href={link}>{link}</a>
-            { console.log(dinero) }
+            <div className='p-4'>
+                <a href={link}>{link}</a>
+            </div>
         </>
     )
 }

@@ -134,7 +134,7 @@ export function CarProvider ( {children} ) {
         }
         break;
       case 'CLEAR_ALL':
-        setCar([])
+        setCar( [] )
         break;
       default:
         console.log('Action no Set')
