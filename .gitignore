@@ -24,4 +24,4 @@ yarn-error.log*
 
 
 # Personal ignore
-/cofig/config.js
+blogger-credentials.js

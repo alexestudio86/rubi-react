@@ -1,4 +1,4 @@
-import { blogID, apiKey } from '../config/config';
+import { blogID, apiKey } from "../blogger-credentials";
 
 
 export async function getHomeProducts ( ) {
